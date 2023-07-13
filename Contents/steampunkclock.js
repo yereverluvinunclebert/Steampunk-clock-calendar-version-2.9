@@ -3067,8 +3067,7 @@ function showAlarm()
             alarmtime = 00000000000000;
         }
     }
-    if  (selectedAlarm == 2)
-{
+    if  (selectedAlarm == 2){
         till02.visible=true;
         flag02.hoffset=flag02HoffsetOut;
         alarmtime = parseFloat(preferences.alarm2.value);
@@ -3103,6 +3102,7 @@ function showAlarm()
              alarmtime = 00000000000000;
          }
      
+    }
     displayCounters();
 }
 //===========================================
