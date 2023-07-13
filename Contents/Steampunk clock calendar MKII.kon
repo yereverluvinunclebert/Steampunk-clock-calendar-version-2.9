@@ -254,7 +254,7 @@
 
 
 
-                <image>
+  <image>
 			<src>Resources/brassbuttonH.png</src>
 			<name>brassbuttonH</name>
 			<hOffset>290</hOffset>
@@ -262,8 +262,8 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me for help</tooltip>
-                </image>
-                <image>
+  </image>
+  <image>
 			<src>Resources/brassbuttonA.png</src>
 			<name>brassbuttonA</name>
 			<hOffset>290</hOffset>

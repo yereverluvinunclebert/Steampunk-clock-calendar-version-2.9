@@ -1252,7 +1252,7 @@ function updateTime()
    {
         if ((mins == 14) && (secs == 58)) // 2 seconds before
         {
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(chime1, false);
         	}
            screenwrite("chiming quarter hour");
@@ -1261,7 +1261,7 @@ function updateTime()
 	else if ((mins == 29) && (secs == 54)) // 6 seconds before
         {
 	       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime2, false);
         	}
 	   screenwrite("chiming half hour ");
@@ -1270,7 +1270,7 @@ function updateTime()
 	else if ((mins == 44) && (secs == 51))  //9 seconds before
         {
 	       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime3, false);
         	}
            screenwrite("chiming three-quarter hour ");
@@ -1280,7 +1280,7 @@ function updateTime()
         {
           // this should occur
 	       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime4, false);
         	}
            screenwrite("chiming  full hour ");
@@ -1318,7 +1318,7 @@ function dropdownmove()
     if (dropdownactive === false)
     {
         
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(rollerblind, false);
         	}
         dropdownactive = true;
@@ -1330,7 +1330,7 @@ function dropdownmove()
     }
     else {
         
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(rollerblindup, false);
         	}
         dropdownactive = false;
@@ -1355,7 +1355,7 @@ function helpdropdownmove()
           helpBottom.visible = true;
           helpTop.visible = true;
       	      
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(pageFumble, false);
         	}
        }
@@ -1375,7 +1375,7 @@ function closehelpdropdown()
         alarmtext.visible= false;
         termstext.visible= false;
         
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(rollerblindup, false);
         	}
         Copyright.visible = false;
@@ -1388,7 +1388,7 @@ function closehelpdropdown()
         //about the largest interval that I can use where the sleep goes largely unnoticed elsewhere
         sleep(500);
         
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
         woodenBar.visible=false;
@@ -1429,14 +1429,14 @@ function switchAlarmsOn()
 
   brassbuttonA.hoffset = ( 295 / clockScale * 100);
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 
  	//release the slider mechanism
   sliderMechanismStatus = "released";
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(zzzz, false);
         	}
 
@@ -1448,7 +1448,7 @@ function switchAlarmsOn()
   resetTillAndToggles();
   sleep(1000);
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
 
@@ -1530,7 +1530,7 @@ function sliderSetOnMouseUp()
 function sliderSetOnMouseMove() {
       if (sliderMechanismStatus == "held") {
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(buzzer, false);
         	}
       }
@@ -1556,7 +1556,7 @@ function constrainSliderSet() {
 
     if (sliderMechanismStatus == "held") {
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(buzzer, false);
         	}
     } else {
@@ -1614,7 +1614,7 @@ function constrainSliderSet() {
             }
             vitality();
                 
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(zzzz, false);
         	}
         }
@@ -1634,7 +1634,7 @@ sliderSet.onMouseWheel = function () {
     var delta = system.event.scrollDelta;
       if (sliderMechanismStatus == "held") {
                  
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(buzzer, false);
         	}
       }
@@ -1674,7 +1674,7 @@ function tick() {
     {
       tickTimer.interval = 30;
           
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tickingSound, false);
         	}
     }
@@ -1699,7 +1699,7 @@ function tollbell ()
      if (tollbellcount >= 8)
      {
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(belltoll01, false);
         	}
        	 tollbellcount = tollbellcount + 1;
@@ -1747,7 +1747,7 @@ function checkticking()
          else
             {
                     
-        	if (preferences.soundPref === "enabled") {
+        	if (preferences.soundPref.value === "enabled") {
         		play(nothing, true);
         	}
                 tickTimer.ticking = false;
@@ -1814,7 +1814,7 @@ function  togglethependulum()
              brassbuttonP.hoffset = ( 290 / clockScale * 100);
              pendulumSet.voffset = ( 292 / clockScale * 100);
                  
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
              screenwrite("pendulum "+pendulumPrefFlg);
@@ -1834,7 +1834,7 @@ function  togglethependulum()
              if (debugFlg === 1) {print("%KON-I-INFO, 4. pendulumSet.voffset " + pendulumSet.voffset)};
              
                  
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
              screenwrite("pendulum "+pendulumPrefFlg);
@@ -1985,7 +1985,7 @@ function togglechimes () {
        chimesOff ();
    }
        
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 
@@ -2003,7 +2003,7 @@ function chimesOn () {
        clapper.visible=true;
        clapperRight.visible=false;
            
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(singleBell, false);
         }
 }
@@ -2042,7 +2042,7 @@ function setalarm () {
           sleep(500);
           //play a bell
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(singleBell, false);
         	}
           clapper.visible=true;
@@ -2054,7 +2054,7 @@ function setalarm () {
       {
   	//play two bells
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(twoBells, false);
         	}
           clapper.visible=false;
@@ -2071,11 +2071,11 @@ function setalarm () {
           //increment the alarm counter
           sleep(1000);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 
@@ -2285,7 +2285,7 @@ function cancelalarmmode() {
       if (sliderMechanismStatus == "released")
       {
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
           screenwrite("Cancelling setting alarm");
@@ -2307,7 +2307,7 @@ function cancelalarmmode() {
           timecount = 0;
           clockTimer.ticking=true;
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
           resetTillAndToggles();
@@ -2316,11 +2316,11 @@ function cancelalarmmode() {
       else
       {
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
           resetTillAndToggles();
@@ -2341,11 +2341,11 @@ function cancelalarmmode() {
 function weekdaytoggle()
 {
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
      if (preferences.weekdayPref.value == "raised")
@@ -2376,11 +2376,11 @@ function weekdaytoggle()
 function setWeekdayIndicator()
 {
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
      if (preferences.weekdayPref.value == "lowered")
@@ -2408,11 +2408,11 @@ function setWeekdayIndicator()
 function screentoggle()
 {
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(zzzz, false);
         	}
      if (preferences.screenPrefFlg.value == "raised")
@@ -2569,7 +2569,7 @@ function togglebackscreen()
 {
   if (debugFlg === 1) {print("%KON-I-INFO,preferences.backscreenPrefFlg.value "+preferences.backscreenPrefFlg.value);};
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 
@@ -2606,7 +2606,7 @@ function toggletimemachine()
 {
   if (debugFlg === 1) {print("%KON-I-INFO,preferences.timeMachinePrefFlg.value "+preferences.timeMachinePrefFlg.value);};
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 
@@ -2768,7 +2768,7 @@ function checkLockState () {
                 if (preferences.soundLevelPref.value != "silent")
                 {
             		    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(lock, false);
         	}
                 }
@@ -2787,7 +2787,7 @@ function checkLockState () {
 function ringalarmbell() {
      //ring alarm
          
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(alarmbells, false);
         	}
 }
@@ -3049,7 +3049,7 @@ function showAlarm()
 
     clockTimer.ticking=false;
       
-    if (preferences.soundPref === "enabled") {
+    if (preferences.soundPref.value === "enabled") {
     	play(clunk, false);
     }
     resetTillAndToggles();
@@ -3116,13 +3116,13 @@ function showAlarm()
 function displayCounters()
 {
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
   displayBlankCounters();
 
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}  //find a sound
   sleep(300);
@@ -3202,11 +3202,11 @@ function confirmalarm()
       if  (alarmReading != 0)
       {
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tingingSound, false);
         	}
          clockDeletion.visible = true;
@@ -3280,14 +3280,14 @@ function deletealarm()
       preferences.alarm5.value = 0;
   }
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}  //find a sound
 
 //  displayBlankCounters();
 
       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}  //find a sound
 
@@ -3323,7 +3323,7 @@ function displayBlankCounters()
           hour1LetterSet.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
       }
@@ -3337,7 +3337,7 @@ function displayBlankCounters()
           hour2LetterSet.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3354,7 +3354,7 @@ function displayBlankCounters()
           minutesNumber2Set.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3369,7 +3369,7 @@ function displayBlankCounters()
           minutesNumber1Set.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3385,7 +3385,7 @@ function displayBlankCounters()
           dayNumber1LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3400,7 +3400,7 @@ function displayBlankCounters()
           dayNumber2LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3425,7 +3425,7 @@ function displayBlankCounters()
           yearNumber1LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3440,7 +3440,7 @@ function displayBlankCounters()
           yearNumber2LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3455,7 +3455,7 @@ function displayBlankCounters()
           yearNumber3LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3470,7 +3470,7 @@ function displayBlankCounters()
           yearNumber4LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3479,7 +3479,7 @@ function displayBlankCounters()
    yearNumber4LetterSet.src = 'Resources/bigblanknumber.png';
 
        
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 }
@@ -3524,7 +3524,7 @@ function selectCanvas()
    if (helpCanvasDisplayed >= 4)
    {
            
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblindup, false);
        }
        closehelpdropdown();
@@ -3560,11 +3560,11 @@ function displayHelp1()
         brassbuttonH.visible= false;
 
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblinddown, false);
         	}
         sleep(300);
@@ -3603,11 +3603,11 @@ function displayHelp2()
         sleep(300);
 
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblinddown, false);
         }
         sleep(300);
@@ -3644,11 +3644,11 @@ function displayHelp3()
         sleep(300);
 
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblinddown, false);
         }
 
@@ -4597,7 +4597,7 @@ grommet.onMouseDown = function () {
     if (preferences.soundLevelPref.value != "silent")
     {
 		    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(lock, false);
         	}
     }
@@ -4777,7 +4777,7 @@ function incrementMonth(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4813,7 +4813,7 @@ function incrementSingleHour(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4849,7 +4849,7 @@ function incrementTenMinutes(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4886,7 +4886,7 @@ function incrementSingleMinutes(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4931,7 +4931,7 @@ function incrementDay(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4965,7 +4965,7 @@ function incrementMillenia(scrollData) {
          //print("year = " + year);
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4999,7 +4999,7 @@ function incrementCentury(scrollData) {
          //print("year = " + year);
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -5034,7 +5034,7 @@ function incrementDecade(scrollData) {
          //print("year = " + year);
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -5066,7 +5066,7 @@ function incrementYear(scrollData) {
          year = padToLeft(year, "0", 4);
          updatecounters();
              
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -5219,7 +5219,7 @@ function brassbuttonLOnMouseDown() {
        brassbuttonL.hoffset = ( 295 / clockScale * 100);
     }
         
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
     changeLoudness();
@@ -5491,7 +5491,7 @@ function changeLoudness () {
         soundLevelPrefFlg = preferences.soundLevelPref.value;
         sleep(300);
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(nothing, true);
         	}
         tickTimer.reset();
@@ -5531,19 +5531,19 @@ function handleDownArrow () {
 function crankUp () {
            if (debugFlg === 1) {print("%KON-I-INFO,volume cranked up");};
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(cranksound, false);
         	}
            //crank.voffset=(340 / clockScale * 100);
            //    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
            //crank.src='Resources/crank-middle.png';
            //sleep(700);
 
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
            crank.voffset=(340 / clockScale * 100);
@@ -5562,19 +5562,19 @@ function crankUp () {
 function crankMiddle () {
            if (debugFlg === 1) {print("%KON-I-INFO,volume cranked middle");};
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(cranksound, false);
         	}
            //crank.voffset=(340 / clockScale * 100);
            //    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
            //crank.src='Resources/crank-middle.png';
            //sleep(700);
 
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
            crank.voffset=(340 / clockScale * 100);
@@ -5594,17 +5594,17 @@ function crankDown () {
            if (debugFlg === 1) {print("%KON-I-INFO,volume cranked down");};
            //crank.voffset=(340 / clockScale * 100);
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play("Resources/crank.mp3", false);
         	}
            //    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play("Resources/clunk.mp3", false);
         	}
            //crank.src='Resources/crank-middle.png';
            //sleep(700);
                
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
 
@@ -5824,93 +5824,93 @@ function playNothing () {
 
                // now play the sounds with the nothing sound to flush the sound buffers
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime1, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime2, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime3, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(chime4, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tickingSound, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(belltoll01, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(singleBell, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(twoBells, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(clunk, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(zzzz, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(buzzer, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(alarmbells, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(till, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblind, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblindup, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(rollerblinddown, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tingingSound, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(counter2, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(lock, false);
         	}
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(cranksound, false);
         	}
 
                cranksound = "Resources/crank-nothing.mp3"
                    
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(cranksound, false);
         	}
 }
@@ -6294,7 +6294,7 @@ clockDeletion.onMouseDown = function () {
         plaqueLink.visible = false;
         clockDeletion.visible = false;
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tingingSound, false);
         	}
 }
@@ -6308,7 +6308,7 @@ clockDeletion.onMouseDown = function () {
 //===========================================
 plaqueLink.onMouseDown = function () {
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(zzzz, false);
         	}
           openURL("http://lightquick.co.uk/instructions-for-the-steampunk-clock-calendar-2.html?Itemid=264");
@@ -6322,7 +6322,7 @@ plaqueLink.onMouseDown = function () {
 //===========================================
 plaquetick.onMouseDown = function () {
               
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tingingSound, false);
         	}
           clockDeletion.visible = false;
@@ -6342,7 +6342,7 @@ helpBottom.onMouseDown = function () {
            helpBottom.visible = false;
            helpTop.visible = false;
       	       
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(pageFumble, false);
         	}
 }
@@ -6372,7 +6372,7 @@ function performCommand(method) {
 
     
             
-        if (preferences.soundPref === "enabled") {
+        if (preferences.soundPref.value === "enabled") {
         		play(tingingSound, false);
         	}
 
