@@ -4,7 +4,7 @@ Steampunk Clock Calendar Yahoo Widget, written in Javascript and XML for the Yah
 Widget (Konfabulator) Engine. Created for XP, Vista, Win7, 8, 10+ as well as the 
 Apple Mac OSX prior to Catalina. 
 
-![lookatme](https://github.com/yereverluvinunclebert/Steampunk-clock-calendar-version-2.9/assets/2788342/d8878f9f-a95a-46f0-8fad-d3cf2573aa1a)
+![wotw-clock-help-preview](https://github.com/yereverluvinunclebert/Steampunk-clock-calendar-version-2.9/assets/2788342/81d32fa2-5b79-4615-b31b-ce46c767ee87)
 
 This Steampunk Clock Calendar Yahoo widget is an attractive steampunk widget for 
 your desktop. It is a deliberately complex clock. Functional and gorgeous at the 
@@ -20,6 +20,8 @@ The tool has two modes, Clock mode and Alarm mode. n clock mode the clock ticks,
 In alarm mode you can set alarms and when the time has passed the alarm will sound.
 
 Instructions for use:
+
+![lookatme](https://github.com/yereverluvinunclebert/Steampunk-clock-calendar-version-2.9/assets/2788342/d8878f9f-a95a-46f0-8fad-d3cf2573aa1a)
 
 By the left of the calendar are five brass toggles/keys. Pressing on each will have the following effect:
 
