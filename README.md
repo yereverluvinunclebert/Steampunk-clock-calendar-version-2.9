@@ -2,12 +2,16 @@
  
 Steampunk Clock Calendar Yahoo Widget, written in Javascript and XML for the Yahoo 
 Widget (Konfabulator) Engine. Created for XP, Vista, Win7, 8, 10+ as well as the 
-Apple Mac OSX prior to Catalina.   .
+Apple Mac OSX prior to Catalina. 
+
+![lookatme](https://github.com/yereverluvinunclebert/Steampunk-clock-calendar-version-2.9/assets/2788342/d8878f9f-a95a-46f0-8fad-d3cf2573aa1a)
 
 This Steampunk Clock Calendar Yahoo widget is an attractive steampunk widget for 
 your desktop. It is a deliberately complex clock. Functional and gorgeous at the 
 same time. This Widget is a moveable widget that you can move anywhere around the 
 desktop as you require.
+
+![steampunk_clock_calendar_mkii__2_9__rc_by_yereverluvinuncleber-d4l5xny](https://github.com/yereverluvinunclebert/Steampunk-clock-calendar-version-2.9/assets/2788342/f2dc5337-0c98-418c-9b68-2374ae7c4222)
 
 The widget can be resized - Hover the cursor over the widget. Press the CTRL key 
 and use your mousewheel up or down. The widget will resize dynamically.
