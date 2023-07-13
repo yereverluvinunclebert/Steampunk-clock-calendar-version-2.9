@@ -74,6 +74,8 @@ S Key - Raises the transparent screen logging the various controls you select. B
          transparent the text may be hard to see when used on a dark desktop background. A new 'B' key
          will also appear on the right of the screen frame that allows you to raise/lower the back screen.
          This will allow you to read the text.
+	 
+![wotw-clock-help-imageII](https://github.com/yereverluvinunclebert/Steampunk-clock-calendar-version-2.9/assets/2788342/ca4d4f68-ee8c-4d93-a684-3ee90907192a)
 
 The screen currently only displays clock/calendar operations but may do more in the future.
 
