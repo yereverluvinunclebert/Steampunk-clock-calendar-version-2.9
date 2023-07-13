@@ -3046,50 +3046,64 @@ function determineNextAlarmAvailable()
 //===========================================
 function showAlarm()
 {
-  clockTimer.ticking=false;
+
+    clockTimer.ticking=false;
       
-        if (preferences.soundPref === "enabled") {
-        		play(clunk, false);
-        	}
-  resetTillAndToggles();
-  timeDeviation = 0;
+    if (preferences.soundPref === "enabled") {
+    	play(clunk, false);
+    }
+    resetTillAndToggles();
+    timeDeviation = 0;
 
-  if  (selectedAlarm == 1)
-  {
-      //alarmTextOne.hOffset=backscreen.hOffset+20;
-      //alarmTextOne.vOffset=backscreen.vOffset+20;
-      //alarmTextOne.visible=true;
-      till01.visible=true;
-      flag01.hoffset=flag01HoffsetOut;
-      alarmtime = parseFloat(preferences.alarm1.value);
-      //if (debugFlg === 1) {print("%KON-I-INFO,alarmtime "+ alarmtime);};
-  }
-  if  (selectedAlarm == 2)
-  {
-      till02.visible=true;
-      flag02.hoffset=flag02HoffsetOut;
-      alarmtime = parseFloat(preferences.alarm2.value);
-  }
-  if  (selectedAlarm == 3)
-  {
-      till03.visible=true;
-      flag03.hoffset=flag03HoffsetOut;
-      alarmtime = parseFloat(preferences.alarm3.value);
-  }
-
-  if  (selectedAlarm == 4)
-  {
-      till04.visible=true;
-      flag04.hoffset=flag04HoffsetOut;
-      alarmtime = parseFloat(preferences.alarm4.value);
-  }
-  if  (selectedAlarm == 5)
-  {
-      till05.visible=true;
-      flag05.hoffset=flag05HoffsetOut;
-      alarmtime = parseFloat(preferences.alarm5.value);
-  }
- displayCounters();
+    if  (selectedAlarm == 1)
+    {
+        //alarmTextOne.hOffset=backscreen.hOffset+20;
+        //alarmTextOne.vOffset=backscreen.vOffset+20;
+        //alarmTextOne.visible=true;
+        till01.visible=true;
+        flag01.hoffset=flag01HoffsetOut;
+        alarmtime = parseFloat(preferences.alarm1.value);
+        if (isNaN(alarmtime) === true) {
+            alarmtime = 00000000000000;
+        }
+    }
+    if  (selectedAlarm == 2)
+{
+        till02.visible=true;
+        flag02.hoffset=flag02HoffsetOut;
+        alarmtime = parseFloat(preferences.alarm2.value);
+        if (isNaN(alarmtime) === true) {
+            alarmtime = 00000000000000;
+        }
+    }
+    
+    if  (selectedAlarm == 3){
+        till03.visible=true;
+        flag03.hoffset=flag03HoffsetOut;
+        alarmtime = parseFloat(preferences.alarm3.value);
+        if (isNaN(alarmtime) === true) {
+            alarmtime = 00000000000000;
+        }
+     }
+   
+    if  (selectedAlarm == 4) {
+        till04.visible=true;
+        flag04.hoffset=flag04HoffsetOut;
+        alarmtime = parseFloat(preferences.alarm4.value);
+          if (isNaN(alarmtime) === true) {
+              alarmtime = 00000000000000;
+          }
+    }
+         
+    if  (selectedAlarm == 5) {
+         till05.visible=true;
+         flag05.hoffset=flag05HoffsetOut;
+         alarmtime = parseFloat(preferences.alarm5.value);
+         if (isNaN(alarmtime) === true) {
+             alarmtime = 00000000000000;
+         }
+     
+    displayCounters();
 }
 //===========================================
 // end function
@@ -5304,9 +5318,9 @@ function flag01OnMouseDown() {
     if (debugFlg === 1) {print("%KON-I-INFO, flag01OnMouseDown " + raisealarmflg);};
 
     if (selectedAlarm == "1") {
-  	if (raisealarmflg != true) {
-             cancelalarmmode();
-          }
+        if (raisealarmflg != true) {
+            cancelalarmmode();
+        }
     } else {
         selectedAlarm = 1;
         alarmToUse = 1;
