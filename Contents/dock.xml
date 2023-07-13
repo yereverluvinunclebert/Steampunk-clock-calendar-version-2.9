@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<dock-item>
+    <image id="dockBackground" src="Resources/dockIcon.png"/>
+     <text id="dockTitle"
+         style="
+             font-family:Helvetica;
+             font-size:10px;
+             font-weight:bold;
+             color:#FFFFFF;"
+         hAlign="center"
+         data="Title"
+         hOffset="37"
+         vOffset="15"
+     />
+</dock-item>

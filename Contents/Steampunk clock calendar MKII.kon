@@ -1,0 +1,1739 @@
+<?xml version="1.0" encoding="utf-8"?>
+<widget minimumVersion="4.5">
+
+<!--
+	 Steampunk Clock Calendar
+	 Written by: Dean Beedell
+
+	 Copyright (C) 2010 All Rights Reserved.
+
+	 Sounds - Modified from the original on Freesound (http://www.freesound.org/usersViewSingle.php?id=37876)
+	 Originating from user digifishmusic, Glaneur_de_sons, acclivity, BMacZero, Benboncan, Wrylytucker, KJackson, Cognito Perceptu and RHumphries
+
+	 Graphics - all my own, with inspiration from the PC game of Jeff Wayne's War of the Worlds.
+
+	 Javascript Code - All my own.
+
+	 XML file - The original XML file was created using the photoshop converter from Yahoo.
+
+	 Version 2.9 (MkII)
+
+-->
+
+	<about-box>
+		<image>Resources/help.png</image>
+		<about-version>
+			<font>Arial</font>
+			<url>http://lightquick.co.uk/downloads/steampunk-clock-calendar-yahoo-widget.html</url>
+			<size>10</size>
+			<hOffset>262</hOffset>
+			<vOffset>495</vOffset>
+			<color>#ffffff</color>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-version>
+
+		<about-text>
+			<data>Copyright</data>
+			<url>http://lightquick.co.uk/copyright-gnu-gpl-licence.html</url>
+			<font>verdana</font>
+			<size>10</size>
+			<hOffset>70</hOffset>
+			<vOffset>278</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Terms</data>
+			<url>http://www.lightquick.co.uk/terms-and-conditions.html</url>
+			<font>verdana</font>
+			<size>10</size>
+			<hOffset>70</hOffset>
+			<vOffset>297</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Privacy Policy</data>
+			<url>http://www.lightquick.co.uk/privacy-policy.html</url>
+			<font>verdana</font>
+			<size>10</size>
+			<hOffset>70</hOffset>
+			<vOffset>317</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Download New Versions Here</data>
+			<url>http://lightquick.co.uk/downloads/steampunk-clock-calendar-yahoo-widget.html</url>
+			<font>verdana</font>
+			<size>10</size>
+			<hOffset>70</hOffset>
+			<vOffset>337</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+
+		<about-text>
+			<data>Read the help</data>
+			<url>http://lightquick.co.uk/index.php?option=com_mmsblog&task=show&id=55&Itemid=227</url>
+			<font>verdana</font>
+			<size>10</size>
+			<hOffset>70</hOffset>
+			<vOffset>357</vOffset>
+			<shadow>
+				<color>#000000</color>
+				<hOffset>0</hOffset>
+				<vOffset>201</vOffset>
+			</shadow>
+		</about-text>
+	</about-box>
+
+	<window
+		title		= "SteamPunk Clock/Calendar"
+		name		= "mainWindow"
+		width		= "1000"
+		height		= "780"
+		visible		= "false"
+		shadow		= "false"
+	>
+
+                <image>
+			<src>Resources/help-bottom.png</src>
+			<name>helpBottom</name>
+			<hOffset>150</hOffset>
+			<vOffset>0</vOffset>
+			<opacity>255</opacity>
+                        <width>781</width>
+                        <visible>false</visible>
+		</image>
+
+
+                <image>
+			<src>Resources/backscreen.png</src>
+			<name>backscreen</name>
+			<hOffset>350</hOffset>
+			<vOffset>225</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+		</image>
+
+                <image>
+			<src>Resources/brassbuttonB.png</src>
+			<name>brassButtonB</name>
+			<hOffset>585</hOffset>
+			<vOffset>200</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<tooltip>toggle back screen</tooltip>
+                </image>
+                <image>
+			<src>Resources/brassbuttonT.png</src>
+			<name>brassButtonT</name>
+			<hOffset>315</hOffset>
+			<vOffset>200</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<tooltip>toggle the time machine images</tooltip>
+                </image>
+
+
+
+                <image>
+			<src>Resources/screentop.png</src>
+			<name>screentop</name>
+			<hOffset>340</hOffset>
+			<vOffset>215</vOffset>
+			<opacity>255</opacity>
+                        <visible>true</visible>
+			<tooltip>raise kinematoscope</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/1888.jpg</src>
+			<name>pastimage</name>
+			<width>240</width>
+			<height>196</height>
+			<hOffset>345</hOffset>
+			<vOffset>25</vOffset>
+			<opacity>220</opacity>
+                        <visible>true</visible>
+			<tooltip>War of the Worlds</tooltip>
+		</image>
+
+
+                <image>
+			<src>Resources/screen.png</src>
+			<name>clearscreen</name>
+			<hOffset>340</hOffset>
+			<vOffset>20</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>raise kinematoscope</tooltip>
+		</image>
+
+
+                <image>
+			<src>Resources/screen.png</src>
+			<name>clearscreen2</name>
+			<hOffset>340</hOffset>
+			<vOffset>20</vOffset>
+			<opacity>1</opacity>
+			<zorder>6</zorder>
+                        <visible>true</visible>
+			<tooltip>raise kinematoscope</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/lhHinge.png</src>
+			<name>lhHinge</name>
+			<visible>false</visible>
+			<hOffset>338</hOffset>
+			<vOffset>170</vOffset>
+			<opacity>255</opacity>
+		</image>
+
+                <image>
+			<src>Resources/rhHinge.png</src>
+			<name>rhHinge</name>
+			<visible>false</visible>
+			<hOffset>545</hOffset>
+			<vOffset>170</vOffset>
+			<opacity>255</opacity>
+		</image>
+
+
+
+                <image>
+			<src>Resources/pendulumSet.png</src>
+			<name>pendulumSet</name>
+			<visible>false</visible>
+			<hOffset>587</hOffset>
+			<vOffset>292</vOffset>
+			<opacity>255</opacity>
+			<width>46</width>
+			<height>192</height>
+			<hRegistrationPoint>23</hRegistrationPoint>
+			<vRegistrationPoint>192</vRegistrationPoint>
+		</image>
+
+		<image>
+		        <src>Resources/dropdown.png</src>
+			<name>dropdown</name>
+			<hOffset>319</hOffset>
+			<vOffset>219</vOffset>
+			<opacity>255</opacity>
+		</image>
+
+		<image>
+			<src>Resources/drawstring.png</src>
+			<name>drawstring</name>
+			<hOffset>452</hOffset>
+			<vOffset>420</vOffset>
+			<opacity>255</opacity>
+			<tooltip>click me</tooltip>
+		</image>
+
+
+
+                <image>
+			<src>Resources/brassbuttonH.png</src>
+			<name>brassbuttonH</name>
+			<hOffset>290</hOffset>
+			<vOffset>255</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>click me for help</tooltip>
+                </image>
+                <image>
+			<src>Resources/brassbuttonA.png</src>
+			<name>brassbuttonA</name>
+			<hOffset>290</hOffset>
+			<vOffset>285</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>Click here to set or edit an alarm</tooltip>
+                </image>
+                <image>
+			<src>Resources/brassbuttonL.png</src>
+			<name>brassbuttonL</name>
+			<hOffset>290</hOffset>
+			<vOffset>315</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>loud/quiet</tooltip>
+                </image>
+                <image>
+			<src>Resources/brassbuttonM.png</src>
+			<name>brassbuttonM</name>
+			<hOffset>290</hOffset>
+			<vOffset>345</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>mute chimes toggle on/off</tooltip>
+                </image>
+
+                <image>
+			<src>Resources/brassbuttonP.png</src>
+			<name>brassbuttonP</name>
+			<hOffset>290</hOffset>
+			<vOffset>375</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>stop/start the pendulum</tooltip>
+                </image>
+                <image>
+			<src>Resources/woodenBar.png</src>
+			<name>woodenBar</name>
+			<hOffset>4</hOffset>
+			<vOffset>259</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+		</image>
+                <image>
+			<src>Resources/bigdropdown.png</src>
+			<name>bigdropdowncanvas</name>
+			<hOffset>00</hOffset>
+			<vOffset>255</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+		</image>
+
+                <image>
+			<src>Resources/brassbutton1.png</src>
+			<name>helpbrassbutton</name>
+			<hOffset>0</hOffset>
+			<vOffset>255</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<tooltip>click me for next help canvas</tooltip>
+                </image>
+
+                <image>
+			<src>Resources/helptext.png</src>
+			<name>helptext</name>
+			<hOffset>0</hOffset>
+			<vOffset>255</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+		</image>
+
+                <image>
+			<src>Resources/termstext.png</src>
+			<name>termstext</name>
+			<hOffset>20</hOffset>
+			<vOffset>265</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+		</image>
+
+                <image>
+			<src>Resources/alarmtext.png</src>
+			<name>alarmtext</name>
+			<hOffset>0</hOffset>
+			<vOffset>285</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+		</image>
+
+		<image>
+			<src>Resources/drawstring.png</src>
+			<name>helpDrawstring</name>
+			<hOffset>136</hOffset>
+			<vOffset>686</vOffset>
+			<opacity>255</opacity>
+			<tooltip>click me</tooltip>
+       			<visible>false</visible>
+		</image>
+
+
+
+		<image
+			src		= "Resources/backgroundItems.png"
+			name		= "backgroundItems"
+			hOffset		= "321 "
+			vOffset		= "223 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/bottomBoxSet.png"
+			name		= "bottomBoxSet"
+			hOffset		= "319 "
+			vOffset		= "350 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/heaterCoil.png"
+			name		= "heaterCoil"
+			hOffset		= "336 "
+			vOffset		= "323 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/orangeHeaterGlow.png"
+			name		= "orangeHeaterGlow"
+			hOffset		= "367 "
+			vOffset		= "334 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/ampmletterm.png"
+			name		= "meridienLetterSet"
+			hOffset		= "574 "
+			vOffset		= "345 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/ampmlettera.png"
+			name		= "antipostLetterSet"
+			hOffset		= "552 "
+			vOffset		= "345 "
+			opacity		= "255"
+       		/>
+
+		<image
+			src		= "Resources/bigLetterJ.png"
+			name		= "monthLetter1LetterSet"
+			hOffset		= "375 "
+			vOffset		= "271 "
+			opacity		= "255"
+			zorder          = "6"
+       		/>
+
+		<image
+			src		= "Resources/smalllettern.png"
+			name		= "monthLetter3SetLetterSet"
+			hOffset		= "408 "
+			vOffset		= "271 "
+			opacity		= "255"
+			zorder          = "6"
+       		/>
+
+		<image
+			src		= "Resources/smallletteru.png"
+			name		= "monthLetter2LetterSet"
+			hOffset		= "391 "
+			vOffset		= "271 "
+			opacity		= "255"
+			zorder          = "6"
+       		/>
+
+		<image
+			src		= "Resources/big9.png"
+			name		= "yearNumber4LetterSet"
+			hOffset		= "500 "
+			vOffset		= "270 "
+			opacity		= "255"
+			zorder          = "6"
+		/>
+
+		<image
+			src		= "Resources/big5.png"
+			name		= "yearNumber3LetterSet"
+			hOffset		= "481 "
+			vOffset		= "270 "
+			opacity		= "255"
+			zorder          = "6"
+		/>
+
+		<image
+			src		= "Resources/big8.png"
+			name		= "yearNumber2LetterSet"
+			hOffset		= "463 "
+			vOffset		= "270 "
+			opacity		= "255"
+			zorder          = "6"
+		/>
+
+		<image
+			src		= "Resources/big1.png"
+			name		= "yearNumber1LetterSet"
+			hOffset		= "444 "
+			vOffset		= "270 "
+			opacity		= "255"
+			zorder          = "6"
+		/>
+
+		<image
+			src		= "Resources/big2.png"
+			name		= "dayNumber2LetterSet"
+			hOffset		= "355 "
+			vOffset		= "270 "
+			opacity		= "255"
+			zorder          = "6"
+       		/>
+
+		<image
+			src		= "Resources/big1.png"
+			name		= "dayNumber1LetterSet"
+			hOffset		= "337 "
+			vOffset		= "270 "
+			opacity		= "255"
+			zorder          = "6"
+       		/>
+
+		<image>
+			<src>Resources/flag01.png</src>
+			<name>flag01</name>
+			<hOffset>585</hOffset>
+			<vOffset>220</vOffset>
+			<tooltip>There are no alarms set</tooltip>
+			<opacity>255</opacity>
+			<visible>true</visible>
+		</image>
+		<image>
+			<src>Resources/flag02.png</src>
+			<name>flag02</name>
+			<hOffset>592</hOffset>
+			<vOffset>237</vOffset>
+			<tooltip>There are no alarms set</tooltip>
+			<opacity>255</opacity>
+			<visible>true</visible>
+		</image>
+
+		<image>
+			<src>Resources/flag03.png</src>
+			<name>flag03</name>
+			<hOffset>603</hOffset>
+			<vOffset>254</vOffset>
+			<tooltip>There are no alarms set</tooltip>
+			<opacity>255</opacity>
+			<visible>true</visible>
+		</image>
+
+		<image>
+			<src>Resources/flag04.png</src>
+			<name>flag04</name>
+			<hOffset>608</hOffset>
+			<vOffset>271</vOffset>
+			<tooltip>There are no alarms set</tooltip>
+			<opacity>255</opacity>
+			<visible>true</visible>
+		</image>
+
+		<image>
+			<src>Resources/flag05.png</src>
+			<name>flag05</name>
+			<hOffset>611</hOffset>
+			<vOffset>288</vOffset>
+			<tooltip>There are no alarms set</tooltip>
+			<opacity>255</opacity>
+			<visible>true</visible>
+		</image>
+
+		<image>
+			<src>Resources/crank-up.png</src>
+			<name>crank</name>
+			<hOffset>600</hOffset>
+			<vOffset>340</vOffset>
+			<tooltip>Crank me down to turn off the sound</tooltip>
+			<opacity>255</opacity>
+			<visible>false</visible>
+		</image>
+
+		<image
+			src		= "Resources/topShelf.png"
+			name		= "topShelf"
+			hOffset		= "319 "
+			vOffset		= "221 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/mainCasingSurround.png"
+			name		= "mainCasingSurround"
+			hOffset		= "314 "
+			vOffset		= "256 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/cableCorner.png"
+			name		= "cableCorner"
+			hOffset		= "328 "
+			vOffset		= "230 "
+			opacity		= "255"
+		/>
+
+                <image>
+			<src>Resources/brassbuttonS.png</src>
+			<name>brassButtonS</name>
+			<hOffset>330</hOffset>
+			<vOffset>215</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>toggle back screen</tooltip>
+                </image>
+                <image>
+			<src>Resources/brassbuttonW.png</src>
+			<name>brassButtonW</name>
+			<hOffset>335</hOffset>
+			<vOffset>240</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+			<tooltip>toggle weekday indicator</tooltip>
+                </image>
+		<image>
+			<src>Resources/topDigitalClock.png</src>
+			<name>topDigitalClock</name>
+			<hOffset>350</hOffset>
+			<vOffset>217</vOffset>
+			<opacity>255</opacity>
+		</image>
+
+
+
+		<image
+			src		= "Resources/small0.png"
+			name		= "minutesNumber2Set"
+			hOffset		= "435 "
+			vOffset		= "225 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/small0.png"
+			name		= "minutesNumber1Set"
+			hOffset		= "456 "
+			vOffset		= "225 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/small0.png"
+			name		= "hour2LetterSet"
+			hOffset		= "407 "
+			vOffset		= "225 "
+			opacity		= "255"
+		/>
+
+		<image
+			src		= "Resources/small0.png"
+			name		= "hour1LetterSet"
+			hOffset		= "386 "
+			vOffset		= "225 "
+			opacity		= "255"
+		/>
+                <frame name="myFrame">
+
+        		<image
+        			src		= "Resources/cableWheelSet.png"
+        			name		= "cableWheelSet"
+        			hOffset		= "507 "
+        			vOffset		= "395 "
+        			opacity		= "255"
+        		/>
+        		<image
+        			src		= "Resources/bar.png"
+        			name		= "bar"
+        			hOffset		= "309 "
+        			vOffset		= "366 "
+        			opacity		= "255"
+        		/>
+        		<image>
+         		       <name>sliderSet</name>
+                               <src>Resources/sliderSet.png</src>
+                               <hOffset>336</hOffset>
+                               <vOffset>347</vOffset>
+      		        </image>
+
+                        <image opacity="255" width="135"  hOffset="430" vOffset="405" name="cable" src="Resources/cable.png"/>
+                </frame>
+
+		<image>
+			<src>Resources/chain.png</src>
+			<name>chain</name>
+			<hOffset>595</hOffset>
+			<vOffset>275</vOffset>
+			<opacity>255</opacity>
+			<visible>true</visible>
+
+       			<tooltip>pulling this chain will silence the ticks</tooltip>
+		</image>
+
+
+
+		<image>
+			<src>Resources/clockSet.png</src>
+			<name>clockSet</name>
+			<hOffset>505</hOffset>
+			<vOffset>237</vOffset>
+			<opacity>255</opacity>
+			<tooltip>click the clock face to set the counters to today</tooltip>
+		</image>
+
+		<image
+			src		= "Resources/hourHand.png"
+			name		= "hourHand"
+			hOffset		= "577"
+			vOffset		= "290"
+			opacity		= "255"
+			width           = "68"
+			height          = "68"
+			hRegistrationPoint = "32"
+			vRegistrationPoint = "32"
+
+		/>
+
+		<image
+			src		= "Resources/minuteHand.png"
+			name		= "minuteHand"
+			hOffset		= "577"
+			vOffset		= "290"
+			opacity		= "255"
+			width           = "84"
+			height          = "84"
+			hRegistrationPoint = "42"
+			vRegistrationPoint = "42"
+
+		/>
+		<image
+			src		= "Resources/minuteHand.png"
+			name		= "secondHand"
+			hOffset		= "577"
+			vOffset		= "290"
+			opacity		= "255"
+			width           = "84"
+			height          = "84"
+			hRegistrationPoint = "42"
+			vRegistrationPoint = "42"
+
+		/>
+
+                <image
+			src		= "Resources/hole.png"
+			name		= "hole"
+			hOffset		= "574 "
+			vOffset		= "286 "
+			opacity		= "255"
+
+		/>
+
+                <image
+			src		= "Resources/grommet.png"
+			name		= "grommet"
+			hOffset		= "575 "
+			vOffset		= "398 "
+			opacity		= "255"
+
+		/>
+
+		<image
+			src		= "Resources/pin-shadow.png"
+			name		= "pin"
+			hOffset		= "580 "
+			vOffset		= "407 "
+			opacity		= "255"
+		/>
+
+                <text>
+                        <data>starting clock calendar</data>
+			<name>terminal00</name>
+			<hOffset>355</hOffset>
+			<vOffset>195</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>1</data>
+			<name>terminal01</name>
+			<hOffset>355</hOffset>
+			<vOffset>185</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>2</data>
+			<name>terminal02</name>
+			<hOffset>355</hOffset>
+			<vOffset>175</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>3</data>
+			<name>terminal03</name>
+			<hOffset>355</hOffset>
+			<vOffset>165</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>4</data>
+			<name>terminal04</name>
+			<hOffset>355</hOffset>
+			<vOffset>155</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>5</data>
+			<name>terminal05</name>
+			<hOffset>355</hOffset>
+			<vOffset>145</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>6</data>
+			<name>terminal06</name>
+			<hOffset>355</hOffset>
+			<vOffset>135</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>7</data>
+			<name>terminal07</name>
+			<hOffset>355</hOffset>
+			<vOffset>125</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>8</data>
+			<name>terminal08</name>
+			<hOffset>355</hOffset>
+			<vOffset>115</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>9</data>
+			<name>terminal09</name>
+			<hOffset>355</hOffset>
+			<vOffset>105</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>10</data>
+			<name>terminal10</name>
+			<hOffset>355</hOffset>
+			<vOffset>95</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>11</data>
+			<name>terminal11</name>
+			<hOffset>355</hOffset>
+			<vOffset>85</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+
+		<text>
+                        <data>12</data>
+			<name>terminal12</name>
+			<hOffset>355</hOffset>
+			<vOffset>75</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+
+		<text>
+                        <data>13</data>
+			<name>terminal13</name>
+			<hOffset>355</hOffset>
+			<vOffset>65</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+
+		<text>
+                        <data>14</data>
+			<name>terminal14</name>
+			<hOffset>355</hOffset>
+			<vOffset>55</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+
+		<text>
+                        <data>15</data>
+			<name>terminal15</name>
+			<hOffset>355</hOffset>
+			<vOffset>45</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>courier new</font>
+                        <color>#121212</color>
+                        <size>8px</size>
+		</text>
+
+		<text>
+                        <data>Copyright</data>
+			<name>Copyright</name>
+			<url>http://lightquick.co.uk/copyright-gnu-gpl-licence.html</url>
+                        <hOffset>80</hOffset>
+			<vOffset>543</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>times new roman</font>
+                        <size>13px</size>
+		</text>
+
+
+		<text>
+			<data>Terms</data>
+			<name>Terms</name>
+			<url>http://www.lightquick.co.uk/terms-and-conditions.html</url>
+			<size>10</size>
+			<hOffset>80</hOffset>
+			<vOffset>563</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>times new roman</font>
+                        <size>13px</size>
+		</text>
+
+		<text>
+			<data>Privacy Policy</data>
+			<name>Privacy</name>
+			<url>http://www.lightquick.co.uk/privacy-policy.html</url>
+			<size>10</size>
+			<hOffset>80</hOffset>
+			<vOffset>583</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>times new roman</font>
+                        <size>13px</size>
+		</text>
+
+		<text>
+			<data>Download New Versions Here</data>
+			<name>Download</name>
+			<url>http://lightquick.co.uk/downloads/steampunk-clock-calendar-yahoo-widget.html</url>
+			<size>10</size>
+			<hOffset>80</hOffset>
+			<vOffset>603</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>times new roman</font>
+                        <size>13px</size>
+		</text>
+
+		<text>
+			<data>Read the help</data>
+			<name>Read</name>
+			<url>http://lightquick.co.uk/index.php?option=com_mmsblog&task=show&id=55&Itemid=227</url>
+			<size>10</size>
+			<hOffset>80</hOffset>
+			<vOffset>623</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>times new roman</font>
+                        <size>13px</size>
+		</text>
+		
+                <image>
+			<src>Resources/till01.png</src>
+			<name>till01</name>
+			<hOffset>460</hOffset>
+			<vOffset>163</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to delete alarm no. 1</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/till02.png</src>
+			<name>till02</name>
+			<hOffset>480</hOffset>
+			<vOffset>164</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to delete alarm no. 2</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/till03.png</src>
+			<name>till03</name>
+			<hOffset>500</hOffset>
+			<vOffset>162</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to delete alarm no. 3</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/till04.png</src>
+			<name>till04</name>
+			<hOffset>520</hOffset>
+			<vOffset>165</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to delete alarm no. 4</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/till05.png</src>
+			<name>till05</name>
+			<hOffset>540</hOffset>
+			<vOffset>165</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to delete alarm no. 5</tooltip>
+
+		</image>
+
+
+		<image>
+			<src>Resources/bellSet.png</src>
+			<name>bellSet</name>
+			<hOffset>482</hOffset>
+			<vOffset>206</vOffset>
+			<opacity>255</opacity>
+			<tooltip>Click here to set or edit an alarm</tooltip>
+
+		</image>
+
+		<image>
+			<src>Resources/clapper.png</src>
+			<name>clapper</name>
+			<hOffset>526</hOffset>
+			<vOffset>206</vOffset>
+			<opacity>255</opacity>
+			<tooltip>mute chimes</tooltip>
+		</image>
+
+		<image>
+			<src>Resources/clapper-right.png</src>
+			<name>clapperRight</name>
+			<hOffset>526</hOffset>
+			<vOffset>206</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+			<tooltip>enable chimes</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/weekday.png</src>
+			<name>weekday</name>
+			<hOffset>400</hOffset>
+			<vOffset>155</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to hide the day indicator</tooltip>
+ 		</image>
+
+
+                <image>
+			<src>Resources/weekday1.png</src>
+			<name>weekdaytext</name>
+			<hOffset>400</hOffset>
+			<vOffset>156</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+			<tooltip>click here to hide the day indicator</tooltip>
+		</image>
+		<image visible="false" vOffset="217" name="clockDeletion" src="Resources/clockdeletion.png" hOffset="295">
+				<tooltip>click on me and I will go away...</tooltip>
+		</image>
+		<image visible="false" opacity="1" vOffset="425" name="plaqueLink" src="Resources/PlaqueLink.png" hOffset="345">
+				<tooltip>Click on me to open this help page in your browser</tooltip>
+                </image>
+		<image visible="false" vOffset="393" name="plaquetick" src="Resources/bell.png" hOffset="334">
+				<tooltip>click on me to enable this pop-up being shown on startup</tooltip>
+		</image>
+
+                <image>
+			<src>Resources/help-top.png</src>
+			<name>helpTop</name>
+			<hOffset>150</hOffset>
+			<vOffset>-20</vOffset>
+			<opacity>255</opacity>
+                        <visible>false</visible>
+		</image>
+
+
+
+                <textArea>
+                        <data>Enter an alarm description</data>
+			<name>alarmTextOne</name>
+			<hOffset>1</hOffset>
+			<vOffset>1</vOffset>
+			<opacity>255</opacity>
+			<visible>false</visible>
+                        <font>times new roman</font>
+                        <bgColor>#FFFFFF</bgColor>
+                        <bgOpacity>255</bgOpacity>
+                        <color>#121212</color>
+                        <columns>20</columns>
+                        <size>13px</size>
+                        <lines>2</lines>
+		</textArea>
+
+	</window>
+
+
+	<prefGroup>
+		<name>alarm</name>
+		<title>Alarm</title>
+		<icon>Resources/bellSet.png</icon>
+		<order>1</order>
+	</prefGroup>
+
+	<prefGroup>
+		<name>digitalclock</name>
+		<title>Digital Clock</title>
+		<icon>Resources/clockpref.png</icon>
+		<order>1</order>
+	</prefGroup>
+
+
+	<prefGroup>
+		<name>analogclock</name>
+		<title>Analog Clock</title>
+		<icon>Resources/clockface.png</icon>
+		<order>2</order>
+	</prefGroup>
+
+	<prefGroup>
+		<name>timepiecesize</name>
+		<title>Timepiece Size</title>
+		<icon>Resources/piecepref.png</icon>
+		<order>3</order>
+	</prefGroup>
+
+        <prefGroup>
+		<name>sounds</name>
+		<title>Sounds</title>
+		<icon>Resources/soundsPref.png</icon>
+		<order>4</order>
+	</prefGroup>
+
+ 	<prefGroup name="development" order="8" icon="Resources/development-icon.png" title="Development"/>
+
+  <preference hidden="false" description="Turning on the debugging will provide extra information in the debug window. To obtain the debug window press SHIFT+CTRL simultaneously whilst right clicking on the Yahoo widget systray icon, then select debug from the drop down menu. You will need to restart the widget properly rather than doing a simple restart for debugging information to appear." name="debugflgPref" group="development" title="Debug:" defaultValue="1" type="popup">
+      <option>Debug OFF</option>
+      <optionValue>0</optionValue>
+      <option>Debug ON</option>
+      <optionValue>1</optionValue>
+  </preference>
+  
+  <preference hidden="true" description="Development ONLY: Enter your editor path here along with any command line switches required to open this widget in the editor. This function only operates if the widget has been unpacked and DEBUG is ON. " name="imageEditPref" group="development" title="Default Editor:" defaultValue="" type="text"/>
+
+
+	<preference hidden="false" group="configuration" description="The scroll-wheel resizing direction can be determined here." name="MouseWheelPref" title="Mouse Scroll Wheel" defaultValue="up" type="popup">
+		<option>up</option>
+		<option>down</option>
+	</preference>
+
+
+
+	<preference name="alarmPref">
+		<title>alarm:</title>
+		<group>alarm</group>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>silent</option>
+		<option>-</option>
+		<defaultValue>silent</defaultValue>
+		<description>All alarm functionality will be disabled if set to silent.</description>
+	</preference>
+
+        <preference name="alarm1">
+		<title>Alarm 1</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>false</hidden>
+		<description>First alarm specified in milliseconds since the 1st January 1970. Set this to zero to delete the alarm.</description>
+	</preference>
+        <preference name="alarm2">
+		<title>Alarm 2</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>false</hidden>
+		<description>The second alarm. Set this to zero to delete the alarm.</description>
+	</preference>
+        <preference name="alarm3">
+		<title>Alarm 3</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>false</hidden>
+		<description>Third alarm. Set this to zero to delete the alarm.</description>
+	</preference>
+        <preference name="alarm4">
+		<title>Alarm 4</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>false</hidden>
+		<description>Fourth alarm.  Set this to zero to delete the alarm.</description>
+	</preference>
+        <preference name="alarm5">
+		<title>Alarm 5</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>false</hidden>
+		<description>Fifth alarm. Set this to zero to delete the alarm.</description>
+	</preference>
+
+	<preference name="alarm1text">
+		<title>Alarm 1 text</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>true</hidden>
+		<description>first alarm text.</description>
+	</preference>
+
+	<preference name="alarm2text">
+		<title>Alarm 2 text</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>true</hidden>
+		<description>second alarm text.</description>
+	</preference>
+
+	<preference name="alarm3text">
+		<title>Alarm 3 text</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>true</hidden>
+		<description>third alarm text.</description>
+	</preference>
+
+	<preference name="alarm4text">
+		<title>Alarm 4 text</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>true</hidden>
+		<description>fourth alarm text.</description>
+	</preference>
+
+	<preference name="alarm5text">
+		<title>Alarm 5 text</title>
+		<group>alarm</group>
+		<type>text</type>
+                <hidden>true</hidden>
+		<description>fifth alarm text.</description>
+	</preference>
+
+	<preference hidden="true" description="" name="widgetLockPref" title="Widget Locked:" defaultValue="0" type="popup">
+		<option>1</option><optionValue>1</optionValue>
+		<option>0</option><optionValue>0</optionValue>
+	</preference>
+
+        <preference name="maxWidthPref">
+		<title>Clock Size:</title>
+		<group>timepiecesize</group>
+		<type>slider</type>
+		<minlength>100</minlength>
+		<maxlength>500</maxlength>
+		<ticks>50</ticks>
+                <ticklabel>100%</ticklabel>
+                <ticklabel>60%</ticklabel>
+                <ticklabel>20%</ticklabel>
+		<defaultValue>90</defaultValue>
+		<description>Decrease the size of the whole timepiece. Change the slider and the whole clock will reduce.</description>
+	</preference>
+
+	<preference hidden="false" group="timepiecesize" description="Here you can set the widget Hoffset/Left X default position." name="hoffsetpref" title="Hoffset/Left X pos" type="text"/>
+
+	<preference hidden="false" group="timepiecesize" description="Here you can set the widget Yoffset/Top Y default position. Both set when you click the locking pin." name="voffsetpref" title="Yoffset/Top Y pos" type="text"/>
+
+	<preference name="hLocationPercPref">
+		<title>Widget horizontal location</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The widget's horizontal location stored in %.</description>
+	</preference>
+
+	<preference name="vLocationPercPref">
+		<title>Widget vertical location</title>
+		<type>text</type>
+		<hidden>true</hidden>
+		<description>The widget's vertical location stored in %.</description>
+	</preference>
+
+
+	<preference name="hrPref">
+		<title>Clock Type:</title>
+		<group>digitalclock</group>
+		<type>popup</type>
+		<option>24hr</option>
+		<option>12hr</option>
+		<option>-</option>
+		<defaultValue>24hr</defaultValue>
+		<description>Choose between 12 or 24hr clock on the digital display.</description>
+	</preference>
+
+
+	<preference name="counterPref">
+		<title>Counter Reset Movement:</title>
+		<group>digitalclock</group>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>disabled</option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<description>Enable the digital counter rotation on the hour and date displays. On older machines, rotation of the digital counters can use a lot of cpu due to math/sound processing. If this occurs on your machine disable the rotation here.</description>
+	</preference>
+
+
+	<preference name="counterPrefdelay">
+		<title>Counter Reset Time:</title>
+		<group>digitalclock</group>
+		<type>slider</type>
+		<minlength>0</minlength>
+		<maxlength>64</maxlength>
+		<ticks>64</ticks>
+                <ticklabel>0</ticklabel>
+                <ticklabel>16</ticklabel>
+                <ticklabel>64</ticklabel>
+		<description>Set the counter reset delay time (in milliseconds) on the digital display.</description>
+	</preference>
+
+	<preference name="chimesPref">
+		<title>Chimes</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>chime</option>
+		<option>no chime </option>
+		<option>-</option>
+		<defaultValue>chime</defaultValue>
+		<description>Decide whether the clock chimes or not. The chimes are Westminster chimes.</description>
+	</preference>
+
+	<preference name="soundsPref">
+		<title>Ticks</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>tick</option>
+		<option>no tick </option>
+		<option>-</option>
+		<defaultValue>tick</defaultValue>
+		<description>Decide whether the clock ticks or not. </description>
+	</preference>
+
+
+	<preference name="soundPref">
+		<title>Sounds</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>enabled</option>
+		<option>disabled</option>
+		<option>-</option>
+		<defaultValue>enabled</defaultValue>
+		<description>Decide whether the clock makes sounds. </description>
+	</preference>
+
+	<preference name="loudnessPref">
+		<title>Volume Boost</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>Boost ON</option>
+		<optionValue>on</optionValue>
+		<option>Boost OFF</option>
+		<optionValue>off</optionValue>
+		<defaultValue>on</defaultValue>
+		<description>Volume loudness boost.</description>
+	</preference>
+
+	<preference name="soundLevelPref">
+		<title>Volume</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>quiet</option>
+		<optionValue>quiet</optionValue>
+		<option>very quiet</option>
+		<optionValue>vquiet</optionValue>
+		<option>silent</option>
+		<optionValue>silent</optionValue>
+		<defaultValue>quiet</defaultValue>
+		<description>Determine clock tick and chiming volumes. Set the volume to silent, very quiet or quiet.</description>
+	</preference>
+
+	<preference name="crankHandlePref">
+		<title>crank position</title>
+		<group>sounds</group>
+		<type>popup</type>
+		<option>up</option>
+		<option>middle</option>
+		<option>down</option>
+		<hidden>true</hidden>
+		<defaultValue>up</defaultValue>
+		<description>Determine clock tick and chiming volumes. Set the volume to silent quiet or loud.</description>
+	</preference>
+
+	<preference name="lastCrankPosition">
+		<title>crank position</title>
+		<group>sounds</group>
+		<type>text</type>
+		<hidden>true</hidden>
+		<defaultValue>up</defaultValue>
+		<description>Determine clock tick and chiming volumes. Set the volume to silent quiet or loud.</description>
+	</preference>
+
+	<preference name="pendulumPref">
+		<title>Pendulum:</title>
+		<group>analogclock</group>
+		<type>popup</type>
+		<option>swing</option>
+		<option>noswing</option>
+		<option>-</option>
+		<defaultValue>noswing</defaultValue>
+		<description>Decide whether the pendulum swings or not. The math behind the graphics of a swinging pendulum requires processor power. Older single-core machines may experience a lot of cpu usage, the widget may then refuse to respond as interrupts are ignored. </description>
+	</preference>
+
+	<preference name="cpuPref">
+		<title>CPU utilisation limit:</title>
+		<group>analogclock</group>
+		<type>popup</type>
+		<option>100%</option>
+		<optionValue>100</optionValue>
+		<option>90%</option>
+		<optionValue>90</optionValue>
+		<option>80%</option>
+		<optionValue>80</optionValue>
+		<option>70%</option>
+		<optionValue>70</optionValue>
+		<option>60%</option>
+		<optionValue>60</optionValue>
+		<option>50%</option>
+		<optionValue>50</optionValue>
+		<option>40%</option>
+		<optionValue>40</optionValue>
+		<option>30%</option>
+		<optionValue>30</optionValue>
+		<option>20%</option>
+		<optionValue>20</optionValue>
+		<option>10%</option>
+		<optionValue>10</optionValue>
+		<option>5%</option>
+		<optionValue>5</optionValue>
+		<defaultValue>60</defaultValue>
+		<description>Stop the pendulum animation whenever the cpu is being used by other programs beyond this value. This prevents your computer's cpu from overloading at peak times. Note the pendulum will stutter from time to time, the lower the value set.</description>
+	</preference>
+        
+        <preference hidden="true" description="Check this box if you don't want to see the Licence Conditions again." name="licenceHide" title="Don't Show Licence Again" defaultValue="0" type="checkbox"/>
+
+	<preference name="weekdayPref">
+		<title>Weekday Flag:</title>
+		<group>analogclock</group>
+		<type>popup</type>
+		<option>raised</option>
+		<option>lowered</option>
+		<option>-</option>
+		<defaultValue>raised</defaultValue>
+		<description>Raise or lower the weekday indicating flag.</description>
+	</preference>
+
+	<preference name="screenPrefFlg">
+		<title>Screen Toggle:</title>
+		<group>config</group>
+		<type>popup</type>
+		<option>raised</option>
+		<option>lowered</option>
+		<option>-</option>
+		<defaultValue>raised</defaultValue>
+		<description>Raise or lower the console screen.</description>
+	</preference>
+
+	<preference name="backscreenPrefFlg">
+		<title>Back Screen Toggle:</title>
+		<group>config</group>
+		<type>popup</type>
+		<option>raised</option>
+		<option>lowered</option>
+		<option>-</option>
+		<defaultValue>raised</defaultValue>
+		<description>Raise or lower the back visibility screen.</description>
+	</preference>
+
+
+	<preference name="timeMachinePrefFlg">
+		<title>Time Screen Toggle:</title>
+		<group>config</group>
+		<type>popup</type>
+		<option>raised</option>
+		<option>lowered</option>
+		<option>-</option>
+		<defaultValue>raised</defaultValue>
+		<description>Raise or lower the time display screen.</description>
+	</preference>
+
+	<preference name="rangeMathPrefFlg">
+		<title>Slider Range or Maths:</title>
+		<group>config</group>
+		<type>popup</type>
+		<option>range</option>
+		<option>maths</option>
+		<option>-</option>
+		<defaultValue>maths</defaultValue>
+		<description>Range or Maths for the slider. Range may be less cpu intensive on low power systems when operating the time slider.</description>
+	</preference>
+
+	<preference name="showHelpPref">
+		<title>Startup Help Page:</title>
+		<group>config</group>
+		<type>popup</type>
+		<option>display</option>
+		<option>hide</option>
+		<defaultValue>display</defaultValue>
+		<description>When the clock starts it always displays a help page. Here you can toggle that page on/off.</description>
+	</preference>
+
+        <action trigger="onKeyDown">
+              <![CDATA[
+                if (system.event.keyCode==16) {
+                    if (debugFlg === 1) {print("%KON-I-INFO, pressing SHIFT "+system.event.keyCode);};
+                    shiftKeyFlag = 1;
+                }
+                if (system.event.keyCode==116) {
+                    if (debugFlg === 1) {print("%KON-I-INFO, pressing F5 "+system.event.keyCode);};
+                    reloadWidget();
+                }
+                if (system.event.keyCode==39) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing right key "+system.event.keyCode);};
+                      if (sliderMechanismStatus == "released") {
+                        sliderSet.hOffset = sliderSet.hOffset  + (5 / clockScale * 100);
+                        sliderSetClicked = true;
+                        constrainSliderSet();
+                      }
+                }
+                if (system.event.keyCode==37) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing left key "+system.event.keyCode);};
+                      if (sliderMechanismStatus == "released") {
+                        sliderSet.hOffset = sliderSet.hOffset - (5 / clockScale * 100);
+                        sliderSetClicked = true;
+                        constrainSliderSet();
+                      }
+                }
+                if (system.event.keyCode==65) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the A key "+system.event.keyCode);};
+                      brassbuttonAOnClick();
+                }
+                if (system.event.keyCode==72) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the H key "+system.event.keyCode);};
+                      helpdropdownmove();
+                }
+                if (system.event.keyCode==76) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the L key "+system.event.keyCode);};
+                      brassbuttonLOnMouseDown();
+                }
+                if (system.event.keyCode==77) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the M key "+system.event.keyCode);};
+                       togglechimes();
+                }
+                if (system.event.keyCode==80) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the P key "+system.event.keyCode);};
+                      togglethependulum();
+                }
+                if (system.event.keyCode==84) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the T key "+system.event.keyCode);};
+                      toggletimemachine();
+                }
+                if (system.event.keyCode==83) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the S key "+system.event.keyCode);};
+                      screentoggle();
+                }
+                if (system.event.keyCode==87) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the W key "+system.event.keyCode);};
+                      weekdaytoggle();
+                }
+                if (system.event.keyCode==66) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the B key "+system.event.keyCode);};
+                      togglebackscreen();
+                }
+                if (system.event.keyCode==49) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the 1 key "+system.event.keyCode);};
+                      flag01OnMouseDown();
+                }
+                if (system.event.keyCode==50) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the 2 key "+system.event.keyCode);};
+                      flag02OnMouseDown();
+                }
+                if (system.event.keyCode==51) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the 3 key "+system.event.keyCode);};
+                      flag03OnMouseDown();
+                }
+                if (system.event.keyCode==52) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the 4 key "+system.event.keyCode);};
+                      flag04OnMouseDown();
+                }
+                if (system.event.keyCode==53) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the 5 key "+system.event.keyCode);};
+                      flag05OnMouseDown();
+                }
+                if (system.event.keyCode==38) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the UP arrow key "+system.event.keyCode);};
+                      handleUpArrow();
+                }
+                if (system.event.keyCode==40) {
+                      if (debugFlg === 1) {print("%KON-I-INFO, pressing the DOWN arrow key "+system.event.keyCode);};
+                      handleDownArrow();
+                }
+               ]]>
+        </action>
+        <action trigger="onKeyUp">
+              <![CDATA[
+                if (system.event.keyCode==39) {
+                      //FWD track
+                      if (debugFlg === 1) {print("%KON-I-INFO, right key "+system.event.keyCode);};
+                      //sliderSetOnMouseUp();
+                }
+                if (system.event.keyCode==37) {
+                      //RWD track
+                      if (debugFlg === 1) {print("%KON-I-INFO, left key "+system.event.keyCode);};
+                      //sliderSetOnMouseUp();
+                }
+               ]]>
+        </action>
+
+        <action trigger="onload">	<![CDATA[
+		include("steampunkclock.js");
+		include("vitality.js");
+	        include("Resources/Licence/Licence.js");
+		startup();
+	// ]]> </action>
+
+	<action trigger="onPreferencesChanged">
+                changePrefs();
+        </action>
+
+
+        <timer name="clockTimer">
+		<interval>1</interval>
+		<ticking>true</ticking>
+		<onTimerFired> <![CDATA[
+			updateTime();
+		// ]]> </onTimerFired>
+	</timer>
+        <timer name="counterTimer">
+		<interval>.1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			changecounter();
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="tickTimer">
+		<interval>1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			tick();
+		// ]]> </onTimerFired>
+	</timer>
+         <timer name="bellTimer">
+		<interval>2</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			tollbell();
+		// ]]> </onTimerFired>
+	</timer>
+        <timer name="pendulumTimer">
+		<interval>0.01</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+                         if (system.cpu.sys + system.cpu.user <= preferences.cpuPref.value)
+                         {
+                             acceleration = gravity * angle;
+                             velocity += acceleration;
+                             angle += velocity;
+                             pendulumSet.rotation = angle +180;
+                         }
+		// ]]> </onTimerFired>
+	</timer>
+        <timer name="alarmTimer">
+		<interval>1</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			ringalarmbell();
+		// ]]> </onTimerFired>
+	</timer>
+
+        <timer name="timeMachineTimer">
+		<interval>0.5</interval>
+		<ticking>false</ticking>
+		<onTimerFired> <![CDATA[
+			timeMachineTimerTicking();
+		// ]]> </onTimerFired>
+	</timer>
+
+
+</widget>

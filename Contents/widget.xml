@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+	<name>Steampunk Clock Calendar MkII</name>
+	<version>2.9</version>
+	<author name = "Dean Beedell" />
+	<platform minVersion = "4.5" />
+	<identifier>60e33580-fed0-11df-a11b-001CBF1CEDB7</identifier>
+        <copyright>(c) 2004-2010 Dean Beedell</copyright>
+        <description>The first truly steampunk Yahoo widget</description>
+	<image usage="security" src="Resources/ImagePref.png"/>
+	<security>
+		<http>all</http>
+		<filesystem>full</filesystem>
+		<applescript>true</applescript>
+		<command>true</command>
+                <hotkey>true</hotkey>		
+	</security>
+</metadata>
