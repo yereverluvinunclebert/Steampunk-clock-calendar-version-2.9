@@ -20,25 +20,25 @@ Instructions for use:
 By the left of the calendar are five brass toggles/keys. Pressing on each will have the following effect:
 
 H Key - will show the first help canvas indicated by the brass number 1 on the top left of the wooden
-         bar. clicking on the brassnumber 1 will select the next drop down help canvas.
-         Clicking on the ring pull at the bottom will make the current canvas go away.
+bar. clicking on the brassnumber 1 will select the next drop down help canvas.
+Clicking on the ring pull at the bottom will make the current canvas go away.
 
 A Key - will activate the alarm mode and will also show the help canvas the first time
-         it is pressed. Click on the ring pull at the bottom to make the canvas go away
-         (f you do this note that it will still be in alarm mode). Clicking on the bell set will also cause
-         the clock to go into alarm mode.
+it is pressed. Click on the ring pull at the bottom to make the canvas go away
+(f you do this note that it will still be in alarm mode). Clicking on the bell set will also cause
+the clock to go into alarm mode.
 
-         When you have pressed the A key it will release the slider and you may move it to the right
-         or left and change time. When you have selected the date/time you want then move the slider
-         to the central position and click on the bell set. The alarm will set. You can set up to five alarms.
+When you have pressed the A key it will release the slider and you may move it to the right
+or left and change time. When you have selected the date/time you want then move the slider
+to the central position and click on the bell set. The alarm will set. You can set up to five alarms.
 
 Alarm mode -  Normal operation is this: When the slider is released the further you move the slider from the
 centre position the more quickly the date/time will change.
 
 When you are ready to set the alarm, click the bellset, two bells will sound and the alarm is set.
 
-         * Please note that while the timepiece in Alarm Mode all clock functions are switched off *
-         * Alarms will not sound whilst in alarm mode *
+* Please note that while the timepiece in Alarm Mode all clock functions are switched off *
+* Alarms will not sound whilst in alarm mode *
 
 To cancel an alarm setting or viewing operation just click on the clock face.
 To cancel a ringing alarm - just click on the bellset.
@@ -67,7 +67,7 @@ S Key - Raises the transparent screen logging the various controls you select. B
          will also appear on the right of the screen frame that allows you to raise/lower the back screen.
          This will allow you to read the text.
 
-         The screen currently only displays clock/calendar operations but may do more in the future.
+The screen currently only displays clock/calendar operations but may do more in the future.
 
 At the back-end there are more preferences that may be changed, all are documented by an associated description.
 
@@ -78,22 +78,29 @@ provide.
 
 Built using: 
 
-  RJTextEd Advanced Editor  https://www.rj-texted.se/ 
-  Adobe Photoshop CS ver 8.0 (2003)  https://www.adobe.com/uk/products/photoshop/free-trial-download.html  
-  Yahoo Widgets SDK: engine (Konfabulator), runtime, debugger & documentation
+	RJTextEd Advanced Editor  https://www.rj-texted.se/ 
+	Adobe Photoshop CS ver 8.0 (2003)  https://www.adobe.com/uk/products/photoshop/free-trial-download.html  
+	Yahoo Widgets SDK: engine (Konfabulator), runtime, debugger & documentation
 
 Tested on :
 
-  Windows XP SP3 32bit on Intel    
- 
+	ReactOS 0.4.14 32bit on virtualBox    
+	Windows 7 Professional 32bit on Intel    
+	Windows 7 Ultimate 64bit on Intel    
+	Windows 7 Professional 64bit on Intel    
+	Windows XP SP3 32bit on Intel    
+	Windows 10 Home 64bit on Intel    
+	Windows 10 Home 64bit on AMD    
+	Windows 11 64bit on Intel  
+	                                   
  Dependencies:
  
  o A windows-alike o/s such as Windows XP, 7-11 or Apple Mac OSX prior to Catalina.    	
  
  o Installation of the yahoo widget SDK runtime engine  
  
-  Yahoo widget engine for Windows - http://g6auc.me.uk/ywidgets_sdk_setup.exe  
-  Yahoo widget engine for Mac - https://rickyromero.com/widgets/downloads/yahoo-widgets-4.5.2.dmg
+	Yahoo widget engine for Windows - http://g6auc.me.uk/ywidgets_sdk_setup.exe  
+	Yahoo widget engine for Mac - https://rickyromero.com/widgets/downloads/yahoo-widgets-4.5.2.dmg
 
 
 Running the widget using a javascript engine frees javascript from running only 
@@ -122,8 +129,8 @@ file:
 com.yahoo.widgetengine.plist which is in /Users/xxx/Library/Preferences. Look 
 for these lines: 
    
-  <key>DockOpen</key>  
-  <string>false</string>  
+	<key>DockOpen</key>  
+	<string>false</string>  
 
 Change to false if it is true.
 
