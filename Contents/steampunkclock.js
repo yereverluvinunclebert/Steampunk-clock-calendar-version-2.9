@@ -937,18 +937,6 @@ function menuitem2OnClick() {
 //=====================
 
 
-//===========================================
-// this function opens my Amazon URL wishlist
-//===========================================
-function menuitem3OnClick() {
-    var answer = alert("Help support the creation of more widgets like this. Buy me a small item on my Amazon wishlist! This button opens a browser window and connects to my Amazon wish list page). Will you be kind and proceed?", "Open Browser Window", "No Thanks");
-    if (answer === 1) {
-        openURL("http://www.amazon.co.uk/gp/registry/registry.html?ie=UTF8&id=A3OBFB6ZN4F7&type=wishlist");
-    }
-}
-//=====================
-//End function
-//=====================
 
 //===========================================
 // this function opens other widgets URL
