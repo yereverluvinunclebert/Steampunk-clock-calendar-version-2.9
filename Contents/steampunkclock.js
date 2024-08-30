@@ -144,7 +144,7 @@
 
 // preference Variables
 
-   var widgetName = "Steampunk clock calendar.widget";
+   var widgetID = "Steampunk clock calendar";
    var soundLevelPrefFlg = preferences.soundLevelPref.value;
    var tickingPrefFlg = preferences.soundLevelPref.value;
    var pendulumPrefFlg = preferences.pendulumPref.value;
@@ -228,7 +228,7 @@
    var clockScale = 100 ;
 
    //variables for the alarm toggle positions
-   var flag01HoffsetIn= 0;    //Math.round( 615 / clockScale * 100)
+   var flag01HoffsetIn= 0;    //Math.round( 615 * (clockScale / 100))
    var flag02HoffsetIn= 0;
    var flag03HoffsetIn= 0;
    var flag04HoffsetIn= 0;
@@ -927,9 +927,9 @@ function menuitem1OnClick() {
 // this function opens the URL for paypal
 //===========================================
 function menuitem2OnClick() {
-    var answer = alert("Help support the creation of more widgets like this, send us a coffee! This button opens a browser window and connects to the Kofi donate page for this widget). Will you be kind and proceed?", "Open Browser Window", "No Thanks");
+    var answer = alert("Help support the creation of more widgets like this, send us a beer! This button opens a browser window and connects to the Paypal donate page for this widget). Will you be kind and proceed?", "Open Browser Window", "No Thanks");
     if (answer === 1) {
-        openURL("https://www.ko-fi.com/yereverluvinunclebert");
+                openURL("https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=info@lightquick.co.uk&currency_code=GBP&amount=2.50&return=&item_name=Donate%20a%20Beer");
     }
 }
 //=====================
@@ -937,6 +937,18 @@ function menuitem2OnClick() {
 //=====================
 
 
+//===========================================
+// this function opens my Amazon URL wishlist
+//===========================================
+function menuitem3OnClick() {
+    var answer = alert("Help support the creation of more widgets like this. Buy me a small item on my Amazon wishlist! This button opens a browser window and connects to my Amazon wish list page). Will you be kind and proceed?", "Open Browser Window", "No Thanks");
+    if (answer === 1) {
+        openURL("http://www.amazon.co.uk/gp/registry/registry.html?ie=UTF8&id=A3OBFB6ZN4F7&type=wishlist");
+    }
+}
+//=====================
+//End function
+//=====================
 
 //===========================================
 // this function opens other widgets URL
@@ -1020,22 +1032,23 @@ function nullfunction() { print("null"); }
 //===========================================
 function findWidget() {
 
- // temporary development version of the widget
-    var widgetFullPath = convertPathToPlatform(system.userWidgetsFolder + "/" + widgetName);
-    var alertString = "The widget folder is: \n";
-    if (filesystem.itemExists(widgetFullPath)) {
-        alertString += system.userWidgetsFolder + " \n\n";
-        alertString += "The widget name is: \n";
-        alertString += widgetName + ".\n ";
-
-        alert(alertString, "Open the widget's folder?", "No Thanks");
-
-        filesystem.reveal(widgetFullPath);
-    } else {
-        widgetFullPath = resolvePath(".");   
-        filesystem.reveal(widgetFullPath);
-        print("widgetFullPath " + widgetFullPath);
-    }
+ var widgetName = "Steampunk clock calendar MKII.widget";
+		// temporary development version of the widget
+ var widgetFullPath = convertPathToPlatform(system.userWidgetsFolder + "/" + widgetName);
+ var alertString = "The widget folder is: \n";
+ alertString += system.userWidgetsFolder + " \n\n";
+ alertString += "The widget name is: \n";
+ alertString += widgetName+".\n ";
+ var answer = alert(alertString, "Open the widget's folder?", "No Thanks");
+ if (answer === 1) {
+            if (filesystem.itemExists(widgetFullPath) )   {
+              //dosCommand = "Explorer.exe /e, /select,E:\\Documents and Settings\\Dean Beedell\\My Documents\\My Widgets\\mars 2.widget";
+              dosCommand = "Explorer.exe /e, /select," + widgetFullPath;
+              //print("dosCommand "+dosCommand);
+              //var explorerExe = runCommand(dosCommand, "bgResult");
+              filesystem.reveal(widgetFullPath);
+            }
+ }
 }
 //=====================
 //End function
@@ -1067,9 +1080,16 @@ function setmenu() {
     	var items = [], item;
 
         item = new MenuItem();
-        item.title = "Donate a Coffee with Ko-Fi";
+        item.title = "Buy a beer with Paypal";
         item.onSelect = function () {
             menuitem2OnClick();
+        };
+	items.push(item);
+
+        item = new MenuItem();
+        item.title = "Donate some candy/sweets via Amazon";
+        item.onSelect = function () {
+            menuitem3OnClick();
         };
 	items.push(item);
 
@@ -1230,7 +1250,6 @@ function updateTime()
 // mute chime - not required in the one second timer
 
    mutechimes = preferences.chimesPref.value;
-   
    //if (debugFlg === 1) {print("%KON-I-INFO,chime ",mins,secs,chime2,mutechimes = preferences.chimesPref.value)};
    if (mutechimes == "no chime")
    {
@@ -1240,7 +1259,8 @@ function updateTime()
    {
         if ((mins == 14) && (secs == 58)) // 2 seconds before
         {
-        	if (preferences.soundPref.value === "enabled") {
+	       
+        		if (preferences.soundPref === "enabled") {
         		play(chime1, false);
         	}
            screenwrite("chiming quarter hour");
@@ -1249,7 +1269,7 @@ function updateTime()
 	else if ((mins == 29) && (secs == 54)) // 6 seconds before
         {
 	       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime2, false);
         	}
 	   screenwrite("chiming half hour ");
@@ -1258,7 +1278,7 @@ function updateTime()
 	else if ((mins == 44) && (secs == 51))  //9 seconds before
         {
 	       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime3, false);
         	}
            screenwrite("chiming three-quarter hour ");
@@ -1268,7 +1288,7 @@ function updateTime()
         {
           // this should occur
 	       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime4, false);
         	}
            screenwrite("chiming  full hour ");
@@ -1306,24 +1326,24 @@ function dropdownmove()
     if (dropdownactive === false)
     {
         
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(rollerblind, false);
         	}
         dropdownactive = true;
- 	dropdown.voffset = 420 / clockScale * 100;
- 	drawstring.voffset = 602 / clockScale * 100;
+ 	dropdown.voffset = 420 * (clockScale / 100);
+ 	drawstring.voffset = 602 * (clockScale / 100);
  	dropdownactive = true;
  	dropdown.visible= true;
         screenwrite("Dropdown canvas rolling down");
     }
     else {
         
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(rollerblindup, false);
         	}
         dropdownactive = false;
-	dropdown.voffset =239 / clockScale * 100;
- 	drawstring.voffset = 420 / clockScale * 100;
+	dropdown.voffset =239 * (clockScale / 100);
+ 	drawstring.voffset = 420 * (clockScale / 100);
  	dropdown.visible= false;
         screenwrite("Dropdown canvas rolling up");
     }
@@ -1343,7 +1363,7 @@ function helpdropdownmove()
           helpBottom.visible = true;
           helpTop.visible = true;
       	      
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(pageFumble, false);
         	}
        }
@@ -1363,7 +1383,7 @@ function closehelpdropdown()
         alarmtext.visible= false;
         termstext.visible= false;
         
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(rollerblindup, false);
         	}
         Copyright.visible = false;
@@ -1376,7 +1396,7 @@ function closehelpdropdown()
         //about the largest interval that I can use where the sleep goes largely unnoticed elsewhere
         sleep(500);
         
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
         woodenBar.visible=false;
@@ -1415,28 +1435,28 @@ function switchAlarmsOn()
   // if no alarms have been set then display the drop down
   //if (debugFlg === 1) {print("%KON-I-INFO,mousedown registered here ", alarmToUse);};
 
-  brassbuttonA.hoffset = ( 295 / clockScale * 100);
+  brassbuttonA.hoffset = ( 295 * (clockScale / 100));
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 
  	//release the slider mechanism
   sliderMechanismStatus = "released";
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(zzzz, false);
         	}
 
   sleep(300);
 
-  sliderSet.hoffset = Math.round( 395 / clockScale * 100);
-  orangeHeaterGlow.hoffset = Math.round( 425 / clockScale * 100);
+  sliderSet.hoffset = Math.round( 395 * (clockScale / 100));
+  orangeHeaterGlow.hoffset = Math.round( 425 * (clockScale / 100));
   stretchCable();
   resetTillAndToggles();
   sleep(1000);
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
 
@@ -1502,8 +1522,8 @@ function sliderSetOnMouseUp()
    if (sliderMechanismStatus == "released" && shiftKeyFlag == 0) {
        //return slider to middle position
        counterTimer.ticking= false;
-       sliderSet.hoffset = Math.round( 395 / clockScale * 100);
-       orangeHeaterGlow.hoffset = Math.round( 425 / clockScale * 100);
+       sliderSet.hoffset = Math.round( 395 * (clockScale / 100));
+       orangeHeaterGlow.hoffset = Math.round( 425 * (clockScale / 100));
        stretchCable();
    }
    shiftKeyFlag = 0;
@@ -1518,13 +1538,13 @@ function sliderSetOnMouseUp()
 function sliderSetOnMouseMove() {
       if (sliderMechanismStatus == "held") {
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(buzzer, false);
         	}
       }
       else
       {
-        sliderSet.hOffset = system.event.hOffset - (35/ clockScale * 100);
+        sliderSet.hOffset = system.event.hOffset - (35* (clockScale / 100));
         constrainSliderSet();
       }
 }
@@ -1544,7 +1564,7 @@ function constrainSliderSet() {
 
     if (sliderMechanismStatus == "held") {
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(buzzer, false);
         	}
     } else {
@@ -1555,16 +1575,16 @@ function constrainSliderSet() {
                    weekdaytoggle();
             }
             //determine slider travel limits
-            rightmost = bar.hOffset + bar.width - (113 / clockScale * 100); //leftmost limit
-            leftmost = bar.hOffset + (25 / clockScale * 100); // rightmost limit
+            rightmost = bar.hOffset + bar.width - (113 * (clockScale / 100)); //leftmost limit
+            leftmost = bar.hOffset + (25 * (clockScale / 100)); // rightmost limit
             if (sliderSet.hOffset >= rightmost) { //568
                 sliderSet.hOffset = rightmost;
             }
             if (sliderSet.hOffset <= leftmost) { //262
                 sliderSet.hOffset = leftmost;
             }
-            orangeHeaterGlow.hoffset = sliderSet.hoffset+(32/ clockScale * 100);
-            //acceleration = timeaccelerationfactor * (sliderSet.hoffset - (396/ clockScale * 100));
+            orangeHeaterGlow.hoffset = sliderSet.hoffset+(32* (clockScale / 100));
+            //acceleration = timeaccelerationfactor * (sliderSet.hoffset - (396* (clockScale / 100)));
             counterTimer.ticking= true;
 
             stretchCable();
@@ -1602,7 +1622,7 @@ function constrainSliderSet() {
             }
             vitality();
                 
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(zzzz, false);
         	}
         }
@@ -1622,7 +1642,7 @@ sliderSet.onMouseWheel = function () {
     var delta = system.event.scrollDelta;
       if (sliderMechanismStatus == "held") {
                  
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(buzzer, false);
         	}
       }
@@ -1630,7 +1650,7 @@ sliderSet.onMouseWheel = function () {
       {
       sliderSetClicked = true;
         if (delta !== 0) {
-            sliderSet.hOffset += delta / clockScale * 100;
+            sliderSet.hOffset += delta * (clockScale / 100);
             constrainSliderSet();
         }
       }
@@ -1662,7 +1682,7 @@ function tick() {
     {
       tickTimer.interval = 30;
           
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tickingSound, false);
         	}
     }
@@ -1687,7 +1707,7 @@ function tollbell ()
      if (tollbellcount >= 8)
      {
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(belltoll01, false);
         	}
        	 tollbellcount = tollbellcount + 1;
@@ -1735,7 +1755,7 @@ function checkticking()
          else
             {
                     
-        	if (preferences.soundPref.value === "enabled") {
+        	if (preferences.soundPref === "enabled") {
         		play(nothing, true);
         	}
                 tickTimer.ticking = false;
@@ -1764,8 +1784,8 @@ function setThePendulum() {
              pendulumSet.rotation = 180 + angle;
              pendulumPrefFlg = "swing";
              preferences.pendulumPref.value = pendulumPrefFlg ;
-             brassbuttonP.hoffset = ( 295 / clockScale * 100);
-             pendulumSet.voffset = ( 292 / clockScale * 100);
+             brassbuttonP.hoffset = ( 295 * (clockScale / 100));
+             pendulumSet.voffset = ( 292 * (clockScale / 100));
              //alert("here 1");
              if (debugFlg === 1) {print("%KON-I-INFO, 1. pendulumSet.voffset " + pendulumSet.voffset)};
          }
@@ -1775,8 +1795,8 @@ function setThePendulum() {
              pendulumTimer.ticking = false;
              pendulumPrefFlg = "noswing";
              preferences.pendulumPref.value = pendulumPrefFlg ;
-             brassbuttonP.hoffset = ( 290 / clockScale * 100);
-             pendulumSet.voffset = ( 587 / clockScale * 100)
+             brassbuttonP.hoffset = ( 290 * (clockScale / 100));
+             pendulumSet.voffset = ( 587 * (clockScale / 100))
              //alert("here 1");
              if (debugFlg === 1) {print("%KON-I-INFO, 2. pendulumSet.voffset " + pendulumSet.voffset)};
          }
@@ -1799,10 +1819,10 @@ function  togglethependulum()
              pendulumTimer.ticking = false;
              pendulumPrefFlg = "noswing";
              preferences.pendulumPref.value = pendulumPrefFlg ;
-             brassbuttonP.hoffset = ( 290 / clockScale * 100);
-             pendulumSet.voffset = ( 292 / clockScale * 100);
+             brassbuttonP.hoffset = ( 290 * (clockScale / 100));
+             pendulumSet.voffset = ( 292 * (clockScale / 100));
                  
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
              screenwrite("pendulum "+pendulumPrefFlg);
@@ -1816,13 +1836,13 @@ function  togglethependulum()
              pendulumTimer.ticking = true;
              pendulumPrefFlg = "swing";
              preferences.pendulumPref.value = pendulumPrefFlg ;
-             brassbuttonP.hoffset = ( 295 / clockScale * 100);
-             pendulumSet.voffset = ( 292 / clockScale * 100);
+             brassbuttonP.hoffset = ( 295 * (clockScale / 100));
+             pendulumSet.voffset = ( 292 * (clockScale / 100));
              //alert("here 2");
              if (debugFlg === 1) {print("%KON-I-INFO, 4. pendulumSet.voffset " + pendulumSet.voffset)};
              
                  
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
              screenwrite("pendulum "+pendulumPrefFlg);
@@ -1843,11 +1863,11 @@ function setBrassbuttonMOnStartup () {
    //if (debugFlg === 1) {print("%KON-I-INFO, preferences.chimesPref.value "+preferences.chimesPref.value);};
    if (preferences.chimesPref.value == "no chime")
    {
-       brassbuttonM.hoffset = ( 295 / clockScale * 100);
+       brassbuttonM.hoffset = ( 295 * (clockScale / 100));
    }
    else
    {
-       brassbuttonM.hoffset = ( 290 / clockScale * 100);
+       brassbuttonM.hoffset = ( 290 * (clockScale / 100));
    }
 }
 //=====================
@@ -1863,11 +1883,11 @@ function setBrassbuttonTOnStartup () {
    //if (debugFlg === 1) {print("%KON-I-INFO, preferences.chimesPref.value "+preferences.chimesPref.value);};
    if (preferences.timeMachinePrefFlg.value == "raised" )
    {
-        brassButtonT.hoffset=(320 / clockScale * 100) ;
+        brassButtonT.hoffset=(320 * (clockScale / 100)) ;
    }
    else
    {
-        brassButtonT.hoffset=(315 / clockScale * 100) ;
+        brassButtonT.hoffset=(315 * (clockScale / 100)) ;
    }
 }
 //=====================
@@ -1883,11 +1903,11 @@ function setBrassbuttonSOnStartup () {
    //if (debugFlg === 1) {print("%KON-I-INFO, preferences.chimesPref.value "+preferences.chimesPref.value);};
    if (preferences.screenPrefFlg.value == "raised")
    {
-        brassButtonS.hoffset=(335 / clockScale * 100) ;
+        brassButtonS.hoffset=(335 * (clockScale / 100)) ;
    }
    else
    {
-        brassButtonS.hoffset=(330 / clockScale * 100) ;
+        brassButtonS.hoffset=(330 * (clockScale / 100)) ;
    }
 }
 //=====================
@@ -1902,11 +1922,11 @@ function setBrassbuttonWOnStartup () {
    //if (debugFlg === 1) {print("%KON-I-INFO, preferences.chimesPref.value "+preferences.chimesPref.value);};
    if (preferences.weekdayPref.value == "raised")
    {
-        brassButtonW.hoffset=(335 / clockScale * 100) ;
+        brassButtonW.hoffset=(335 * (clockScale / 100)) ;
    }
    else
    {
-        brassButtonW.hoffset=(330 / clockScale * 100) ;
+        brassButtonW.hoffset=(330 * (clockScale / 100)) ;
    }
 }
 //=====================
@@ -1922,11 +1942,11 @@ function setBrassbuttonPOnStartup () {
    //if (debugFlg === 1) {print("%KON-I-INFO, preferences.chimesPref.value "+preferences.chimesPref.value);};
    if (preferences.pendulumPref.value == "swing")
    {
-       brassbuttonP.hoffset = ( 295 / clockScale * 100);
+       brassbuttonP.hoffset = ( 295 * (clockScale / 100));
    }
    else
    {
-       brassbuttonP.hoffset = ( 290 / clockScale * 100);
+       brassbuttonP.hoffset = ( 290 * (clockScale / 100));
    }
 }
 //=====================
@@ -1942,11 +1962,11 @@ function setBrassbuttonBOnStartup () {
    //if (debugFlg === 1) {print("%KON-I-INFO, preferences.chimesPref.value "+preferences.chimesPref.value);};
    if (preferences.backscreenPrefFlg.value == "raised")
    {
-        brassButtonB.hoffset=(575 / clockScale * 100) ;
+        brassButtonB.hoffset=(575 * (clockScale / 100)) ;
    }
    else
    {
-        brassButtonB.hoffset=(582 / clockScale * 100) ;
+        brassButtonB.hoffset=(582 * (clockScale / 100)) ;
    }
 }
 //=====================
@@ -1973,7 +1993,7 @@ function togglechimes () {
        chimesOff ();
    }
        
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 
@@ -1986,12 +2006,12 @@ function togglechimes () {
 // function to turn chimes on
 //===========================================
 function chimesOn () {
-       brassbuttonM.hoffset = ( 290 / clockScale * 100);
+       brassbuttonM.hoffset = ( 290 * (clockScale / 100));
        preferences.chimesPref.value = "chime";
        clapper.visible=true;
        clapperRight.visible=false;
            
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(singleBell, false);
         }
 }
@@ -2004,7 +2024,7 @@ function chimesOn () {
 //===========================================
 function chimesOff () {
        preferences.chimesPref.value = "no chime";
-       brassbuttonM.hoffset = ( 295 / clockScale * 100);
+       brassbuttonM.hoffset = ( 295 * (clockScale / 100));
        clapper.visible=false;
        clapperRight.visible=true;
 }
@@ -2030,7 +2050,7 @@ function setalarm () {
           sleep(500);
           //play a bell
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(singleBell, false);
         	}
           clapper.visible=true;
@@ -2042,7 +2062,7 @@ function setalarm () {
       {
   	//play two bells
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(twoBells, false);
         	}
           clapper.visible=false;
@@ -2059,11 +2079,11 @@ function setalarm () {
           //increment the alarm counter
           sleep(1000);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 
@@ -2273,7 +2293,7 @@ function cancelalarmmode() {
       if (sliderMechanismStatus == "released")
       {
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
           screenwrite("Cancelling setting alarm");
@@ -2281,10 +2301,10 @@ function cancelalarmmode() {
           runmode = "returning";
           //hold the slider mechanism
        	  sliderMechanismStatus = "held";
-       	  sliderSet.hoffset = 335/ clockScale * 100;
-       	  orangeHeaterGlow.hoffset = 367/ clockScale * 100;
+       	  sliderSet.hoffset = 335* (clockScale / 100);
+       	  orangeHeaterGlow.hoffset = 367* (clockScale / 100);
           stretchCable();
-          brassbuttonA.hoffset=(290 / clockScale * 100);
+          brassbuttonA.hoffset=(290 * (clockScale / 100));
           //brassbuttonA.hoffset = 290;
           counterTimer.ticking= false;
           hourHand.opacity =255;
@@ -2295,7 +2315,7 @@ function cancelalarmmode() {
           timecount = 0;
           clockTimer.ticking=true;
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
           resetTillAndToggles();
@@ -2304,11 +2324,11 @@ function cancelalarmmode() {
       else
       {
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
           resetTillAndToggles();
@@ -2329,11 +2349,11 @@ function cancelalarmmode() {
 function weekdaytoggle()
 {
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
      if (preferences.weekdayPref.value == "raised")
@@ -2342,7 +2362,7 @@ function weekdaytoggle()
         weekdaytext.visible = false;
         weekday.visible = false;
         preferences.weekdayPref.value = "lowered";
-        brassButtonW.hoffset=(330 / clockScale * 100) ;
+        brassButtonW.hoffset=(330 * (clockScale / 100)) ;
      }
      else
      {
@@ -2350,7 +2370,7 @@ function weekdaytoggle()
         weekdaytext.visible = true;
         weekday.visible = true;
         preferences.weekdayPref.value = "raised";
-        brassButtonW.hoffset=(335 / clockScale * 100) ;
+        brassButtonW.hoffset=(335 * (clockScale / 100)) ;
      }
      screenwrite("week indicator set to "+ preferences.weekdayPref.value);
 }
@@ -2364,24 +2384,24 @@ function weekdaytoggle()
 function setWeekdayIndicator()
 {
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
      if (preferences.weekdayPref.value == "lowered")
      {
         weekdaytext.visible = false;
         weekday.visible = false;
-        brassButtonW.hoffset=(330 / clockScale * 100) ;
+        brassButtonW.hoffset=(330 * (clockScale / 100)) ;
      }
      else
      {
         weekdaytext.visible = true;
         weekday.visible = true;
-        brassButtonW.hoffset=(335 / clockScale * 100) ;
+        brassButtonW.hoffset=(335 * (clockScale / 100)) ;
      }
      screenwrite("week indicator set to "+ preferences.weekdayPref.value);
 }
@@ -2396,11 +2416,11 @@ function setWeekdayIndicator()
 function screentoggle()
 {
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(zzzz, false);
         	}
      if (preferences.screenPrefFlg.value == "raised")
@@ -2450,7 +2470,7 @@ function screensethigh()
         brassButtonB.visible=true;
         brassButtonT.visible=true;
         //brassButtonS.hoffset=335;
-        brassButtonS.hoffset=(335 / clockScale * 100) ;
+        brassButtonS.hoffset=(335 * (clockScale / 100)) ;
 
         terminal00.visible = true;
         terminal01.visible = true;
@@ -2483,7 +2503,7 @@ function screensethigh()
 function screensetlow()
 {
         clearscreen2.tooltip="raise kinematoscope";
-        brassButtonS.hoffset=(330 / clockScale * 100) ;
+        brassButtonS.hoffset=(330 * (clockScale / 100)) ;
         brassButtonB.visible=false;
         brassButtonT.visible=false;
         backscreen.visible= false;
@@ -2557,30 +2577,30 @@ function togglebackscreen()
 {
   if (debugFlg === 1) {print("%KON-I-INFO,preferences.backscreenPrefFlg.value "+preferences.backscreenPrefFlg.value);};
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 
      if (preferences.backscreenPrefFlg.value == "raised")
      {
-        backscreen.voffset = clearscreen.voffset + 215 / clockScale * 100;
+        backscreen.voffset = clearscreen.voffset + 215 * (clockScale / 100);
 
         backscreenvoffsetCurrent = backscreen.voffset;
 
         preferences.backscreenPrefFlg.value = "lowered";
         screenwrite("lower back screen");
-        brassButtonB.hoffset=(582 / clockScale * 100) ;
+        brassButtonB.hoffset=(582 * (clockScale / 100)) ;
      }
      else if (preferences.backscreenPrefFlg.value == "lowered")
      {
         backscreen.visible = true;
-        backscreen.voffset = clearscreen.voffset + 5 / clockScale * 100;
+        backscreen.voffset = clearscreen.voffset + 5 * (clockScale / 100);
 
         backscreenvoffsetCurrent = backscreen.voffset;
 
         preferences.backscreenPrefFlg.value = "raised";
         screenwrite("raise back screen");
-        brassButtonB.hoffset=(575 / clockScale * 100) ;
+        brassButtonB.hoffset=(575 * (clockScale / 100)) ;
      }
 }
 //=====================
@@ -2594,7 +2614,7 @@ function toggletimemachine()
 {
   if (debugFlg === 1) {print("%KON-I-INFO,preferences.timeMachinePrefFlg.value "+preferences.timeMachinePrefFlg.value);};
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 
@@ -2603,14 +2623,14 @@ function toggletimemachine()
         pastimage.visible = false;
         preferences.timeMachinePrefFlg.value = "lowered";
         screenwrite("lower time display");
-        brassButtonT.hoffset=(315 / clockScale * 100) ;
+        brassButtonT.hoffset=(315 * (clockScale / 100)) ;
      }
      else if (preferences.timeMachinePrefFlg.value == "lowered")
      {
         pastimage.visible = true;
         preferences.timeMachinePrefFlg.value = "raised";
         screenwrite("raise time display");
-        brassButtonT.hoffset=(320 / clockScale * 100) ;
+        brassButtonT.hoffset=(320 * (clockScale / 100)) ;
      }
 }
 //=====================
@@ -2630,13 +2650,13 @@ function checktimemachine()
      {
         pastimage.visible = false;
         screenwrite("lower time display");
-        brassButtonT.hoffset=(315 / clockScale * 100) ;
+        brassButtonT.hoffset=(315 * (clockScale / 100)) ;
      }
      else if (preferences.timeMachinePrefFlg.value == "raised")
      {
         pastimage.visible = true;
         screenwrite("raise time display");
-        brassButtonT.hoffset=(320 / clockScale * 100) ;
+        brassButtonT.hoffset=(320 * (clockScale / 100)) ;
      }
 }
 //=====================
@@ -2654,21 +2674,21 @@ function checkbackscreen()
      if (preferences.backscreenPrefFlg.value == "raised")
      {
         backscreen.visible = true;
-        backscreen.voffset = clearscreen.voffset + 5 / clockScale * 100;
+        backscreen.voffset = clearscreen.voffset + 5 * (clockScale / 100);
 
         backscreenvoffsetCurrent = backscreen.voffset;
 
         screenwrite("raise back screen");
-        brassButtonB.hoffset=(575 / clockScale * 100) ;
+        brassButtonB.hoffset=(575 * (clockScale / 100)) ;
      }
      else if (preferences.backscreenPrefFlg.value == "lowered")
      {
-        backscreen.voffset = clearscreen.voffset + 215 / clockScale * 100;
+        backscreen.voffset = clearscreen.voffset + 215 * (clockScale / 100);
 
         backscreenvoffsetCurrent = backscreen.voffset;
 
         screenwrite("lower back screen");
-        brassButtonB.hoffset=(582 / clockScale * 100) ;
+        brassButtonB.hoffset=(582 * (clockScale / 100)) ;
      }
 }
 //=====================
@@ -2756,7 +2776,7 @@ function checkLockState () {
                 if (preferences.soundLevelPref.value != "silent")
                 {
             		    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(lock, false);
         	}
                 }
@@ -2775,7 +2795,7 @@ function checkLockState () {
 function ringalarmbell() {
      //ring alarm
          
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(alarmbells, false);
         	}
 }
@@ -2958,11 +2978,11 @@ function   resetTillAndToggles()
   till04.visible=false;
   till05.visible=false;
 
-  flag01.hoffset=Math.round( 585 / clockScale * 100);
-  flag02.hoffset=Math.round( 592 / clockScale * 100);
-  flag03.hoffset=Math.round( 603 / clockScale * 100);
-  flag04.hoffset=Math.round( 609 / clockScale * 100);
-  flag05.hoffset=Math.round( 611 / clockScale * 100);
+  flag01.hoffset=Math.round( 585 * (clockScale / 100));
+  flag02.hoffset=Math.round( 592 * (clockScale / 100));
+  flag03.hoffset=Math.round( 603 * (clockScale / 100));
+  flag04.hoffset=Math.round( 609 * (clockScale / 100));
+  flag05.hoffset=Math.round( 611 * (clockScale / 100));
 }
 //=====================
 //End function
@@ -3034,64 +3054,50 @@ function determineNextAlarmAvailable()
 //===========================================
 function showAlarm()
 {
-
-    clockTimer.ticking=false;
+  clockTimer.ticking=false;
       
-    if (preferences.soundPref.value === "enabled") {
-    	play(clunk, false);
-    }
-    resetTillAndToggles();
-    timeDeviation = 0;
+        if (preferences.soundPref === "enabled") {
+        		play(clunk, false);
+        	}
+  resetTillAndToggles();
+  timeDeviation = 0;
 
-    if  (selectedAlarm == 1)
-    {
-        //alarmTextOne.hOffset=backscreen.hOffset+20;
-        //alarmTextOne.vOffset=backscreen.vOffset+20;
-        //alarmTextOne.visible=true;
-        till01.visible=true;
-        flag01.hoffset=flag01HoffsetOut;
-        alarmtime = parseFloat(preferences.alarm1.value);
-        if (isNaN(alarmtime) === true) {
-            alarmtime = 00000000000000;
-        }
-    }
-    if  (selectedAlarm == 2){
-        till02.visible=true;
-        flag02.hoffset=flag02HoffsetOut;
-        alarmtime = parseFloat(preferences.alarm2.value);
-        if (isNaN(alarmtime) === true) {
-            alarmtime = 00000000000000;
-        }
-    }
-    
-    if  (selectedAlarm == 3){
-        till03.visible=true;
-        flag03.hoffset=flag03HoffsetOut;
-        alarmtime = parseFloat(preferences.alarm3.value);
-        if (isNaN(alarmtime) === true) {
-            alarmtime = 00000000000000;
-        }
-     }
-   
-    if  (selectedAlarm == 4) {
-        till04.visible=true;
-        flag04.hoffset=flag04HoffsetOut;
-        alarmtime = parseFloat(preferences.alarm4.value);
-          if (isNaN(alarmtime) === true) {
-              alarmtime = 00000000000000;
-          }
-    }
-         
-    if  (selectedAlarm == 5) {
-         till05.visible=true;
-         flag05.hoffset=flag05HoffsetOut;
-         alarmtime = parseFloat(preferences.alarm5.value);
-         if (isNaN(alarmtime) === true) {
-             alarmtime = 00000000000000;
-         }
-     
-    }
-    displayCounters();
+  if  (selectedAlarm == 1)
+  {
+      //alarmTextOne.hOffset=backscreen.hOffset+20;
+      //alarmTextOne.vOffset=backscreen.vOffset+20;
+      //alarmTextOne.visible=true;
+      till01.visible=true;
+      flag01.hoffset=flag01HoffsetOut;
+      alarmtime = parseFloat(preferences.alarm1.value);
+      //if (debugFlg === 1) {print("%KON-I-INFO,alarmtime "+ alarmtime);};
+  }
+  if  (selectedAlarm == 2)
+  {
+      till02.visible=true;
+      flag02.hoffset=flag02HoffsetOut;
+      alarmtime = parseFloat(preferences.alarm2.value);
+  }
+  if  (selectedAlarm == 3)
+  {
+      till03.visible=true;
+      flag03.hoffset=flag03HoffsetOut;
+      alarmtime = parseFloat(preferences.alarm3.value);
+  }
+
+  if  (selectedAlarm == 4)
+  {
+      till04.visible=true;
+      flag04.hoffset=flag04HoffsetOut;
+      alarmtime = parseFloat(preferences.alarm4.value);
+  }
+  if  (selectedAlarm == 5)
+  {
+      till05.visible=true;
+      flag05.hoffset=flag05HoffsetOut;
+      alarmtime = parseFloat(preferences.alarm5.value);
+  }
+ displayCounters();
 }
 //===========================================
 // end function
@@ -3104,13 +3110,13 @@ function showAlarm()
 function displayCounters()
 {
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
   displayBlankCounters();
 
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}  //find a sound
   sleep(300);
@@ -3190,11 +3196,11 @@ function confirmalarm()
       if  (alarmReading != 0)
       {
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tingingSound, false);
         	}
          clockDeletion.visible = true;
@@ -3268,14 +3274,14 @@ function deletealarm()
       preferences.alarm5.value = 0;
   }
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}  //find a sound
 
 //  displayBlankCounters();
 
       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}  //find a sound
 
@@ -3311,7 +3317,7 @@ function displayBlankCounters()
           hour1LetterSet.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
       }
@@ -3325,7 +3331,7 @@ function displayBlankCounters()
           hour2LetterSet.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3342,7 +3348,7 @@ function displayBlankCounters()
           minutesNumber2Set.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3357,7 +3363,7 @@ function displayBlankCounters()
           minutesNumber1Set.src = 'Resources/small'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3373,7 +3379,7 @@ function displayBlankCounters()
           dayNumber1LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3388,7 +3394,7 @@ function displayBlankCounters()
           dayNumber2LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3413,7 +3419,7 @@ function displayBlankCounters()
           yearNumber1LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3428,7 +3434,7 @@ function displayBlankCounters()
           yearNumber2LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3443,7 +3449,7 @@ function displayBlankCounters()
           yearNumber3LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3458,7 +3464,7 @@ function displayBlankCounters()
           yearNumber4LetterSet.src = 'Resources/big'+a+'.png';
           sleep(sleepvalue);
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
        }
@@ -3467,7 +3473,7 @@ function displayBlankCounters()
    yearNumber4LetterSet.src = 'Resources/bigblanknumber.png';
 
        
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 }
@@ -3512,7 +3518,7 @@ function selectCanvas()
    if (helpCanvasDisplayed >= 4)
    {
            
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblindup, false);
        }
        closehelpdropdown();
@@ -3548,17 +3554,17 @@ function displayHelp1()
         brassbuttonH.visible= false;
 
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblinddown, false);
         	}
         sleep(300);
 
         brassbuttonH.visible= false;
-        woodenBar.voffset=259/ clockScale * 100;
+        woodenBar.voffset=259* (clockScale / 100);
         woodenBar.visible=true;
         helpbrassbutton.src='Resources/brassbutton1.png';
         helpbrassbutton.visible=true;
@@ -3566,7 +3572,7 @@ function displayHelp1()
         sleep(300);
 
         helpdropdownactiveFlg = true;
-        bigdropdowncanvas.voffset= 255/ clockScale * 100;
+        bigdropdowncanvas.voffset= 255* (clockScale / 100);
 
  	bigdropdowncanvas.visible= true;
         helptext.visible= true;
@@ -3591,16 +3597,16 @@ function displayHelp2()
         sleep(300);
 
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblinddown, false);
         }
         sleep(300);
 
-        woodenBar.voffset=259/ clockScale * 100;
+        woodenBar.voffset=259* (clockScale / 100);
         woodenBar.visible=true;
         brassbuttonH.visible= false;
         helpbrassbutton.src='Resources/brassbutton2.png';
@@ -3612,8 +3618,8 @@ function displayHelp2()
         alarmtext.visible= true;
 
  	bigdropdowncanvas.visible= true;
-        bigdropdowncanvas.voffset= 255/ clockScale * 100;
-        alarmtext.voffset = 255/ clockScale * 100;
+        bigdropdowncanvas.voffset= 255* (clockScale / 100);
+        alarmtext.voffset = 255* (clockScale / 100);
 
         screenwrite("Opening Alarm Help Canvas");
         if (debugFlg === 1) {print("%KON-I-INFO,Opening Alarm Help");};
@@ -3632,17 +3638,17 @@ function displayHelp3()
         sleep(300);
 
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblinddown, false);
         }
 
         sleep(300);
 
-        woodenBar.voffset=259/ clockScale * 100;
+        woodenBar.voffset=259* (clockScale / 100);
         woodenBar.visible=true;
 
         brassbuttonH.visible= false;
@@ -3660,10 +3666,10 @@ function displayHelp3()
         Download.visible = true;
         Read.visible = true;
 
-        bigdropdowncanvas.voffset= 255/ clockScale * 100;
+        bigdropdowncanvas.voffset= 255* (clockScale / 100);
  	    bigdropdowncanvas.visible= true;
 
-        termstext.voffset = 265/ clockScale * 100;
+        termstext.voffset = 265* (clockScale / 100);
 
         screenwrite("Opening Dropdown Canvas");
         if (debugFlg === 1) {print("%KON-I-INFO,Opening helpdropdownmove");};
@@ -3701,568 +3707,568 @@ function changePrefs()
 //===============================
 function resizeClock()
 {
-        var reduction = 0;
-        reduction = 100-preferences.maxWidthPref.value;
+
+
         //if (debugFlg === 1) {print("%KON-I-INFO,Resizing preferences.maxWidthPref.value ",preferences.maxWidthPref.value);};
-        if (debugFlg === 1) {print("%KON-I-INFO,Resizing reduction ",Math.abs(reduction) +"%");};
+
         //screenwrite("resizing reduction "+ Math.abs(reduction) +"%");
 
-        clockScale = preferences.maxWidthPref.value;
-        //clockScale = 500;     //smaller
+        clockScale = preferences.maxWidthPref.value ;
+        //clockScale = 25;     //smaller
 
         //if (debugFlg === 1) {print("%KON-I-INFO,preferences.maxWidthPref.value ",preferences.maxWidthPref.value);};
 	//if (debugFlg === 1) {print("%KON-I-INFO,reduction ",reduction);};
 	//if (debugFlg === 1) {print("%KON-I-INFO,clockScale ",clockScale);};
 
-	mainWindow.width  = mainWindowwidthDefault / clockScale * 100;
-	mainWindow.height = mainWindowheightDefault / clockScale * 100;
+	mainWindow.width  = mainWindowwidthDefault * (clockScale / 100) ;
+	mainWindow.height = mainWindowheightDefault * (clockScale / 100) ;
 
-        //body.hoffset =  bodyhoffsetDefault / clockScale * 100;
-        //body.voffset =  bodyvoffsetDefault / clockScale * 100;
-        //body.width =  bodywidthDefault / clockScale * 100;
-        //body.height =  bodyheightDefault / clockScale * 100;
+        //body.hoffset =  bodyhoffsetDefault * (clockScale / 100);
+        //body.voffset =  bodyvoffsetDefault * (clockScale / 100);
+        //body.width =  bodywidthDefault * (clockScale / 100);
+        //body.height =  bodyheightDefault * (clockScale / 100);
 
-	//background1.hoffset = _background1hoffsetDefault / clockScale * 100;
-	//background1.voffset = _background1voffsetDefault / clockScale * 100;
-	//background1.width   = _background1widthDefault / clockScale * 100;
-	//background1.height  = _background1heightDefault / clockScale * 100;
+	//background1.hoffset = _background1hoffsetDefault * (clockScale / 100);
+	//background1.voffset = _background1voffsetDefault * (clockScale / 100);
+	//background1.width   = _background1widthDefault * (clockScale / 100);
+	//background1.height  = _background1heightDefault * (clockScale / 100);
 
-        brassButtonB.hoffset =  brassButtonBhoffsetDefault / clockScale * 100;
-        brassButtonB.voffset =  brassButtonBvoffsetDefault / clockScale * 100;
-        brassButtonB.width =  brassButtonBwidthDefault / clockScale * 100;
-        brassButtonB.height =  brassButtonBheightDefault / clockScale * 100;
+        brassButtonB.hoffset =  brassButtonBhoffsetDefault * (clockScale / 100);
+        brassButtonB.voffset =  brassButtonBvoffsetDefault * (clockScale / 100);
+        brassButtonB.width =  brassButtonBwidthDefault * (clockScale / 100);
+        brassButtonB.height =  brassButtonBheightDefault * (clockScale / 100);
 
-        brassButtonT.hoffset =  brassButtonThoffsetDefault / clockScale * 100;
-        brassButtonT.voffset =  brassButtonTvoffsetDefault / clockScale * 100;
-        brassButtonT.width =  brassButtonTwidthDefault / clockScale * 100;
-        brassButtonT.height =  brassButtonTheightDefault / clockScale * 100;
+        brassButtonT.hoffset =  brassButtonThoffsetDefault * (clockScale / 100);
+        brassButtonT.voffset =  brassButtonTvoffsetDefault * (clockScale / 100);
+        brassButtonT.width =  brassButtonTwidthDefault * (clockScale / 100);
+        brassButtonT.height =  brassButtonTheightDefault * (clockScale / 100);
 
-        screentop.hoffset =  screentophoffsetDefault / clockScale * 100;
-        screentop.voffset =  screentopvoffsetDefault / clockScale * 100;
-        screentop.width =  screentopwidthDefault / clockScale * 100;
-        screentop.height =  screentopheightDefault / clockScale * 100;
+        screentop.hoffset =  screentophoffsetDefault * (clockScale / 100);
+        screentop.voffset =  screentopvoffsetDefault * (clockScale / 100);
+        screentop.width =  screentopwidthDefault * (clockScale / 100);
+        screentop.height =  screentopheightDefault * (clockScale / 100);
 
-        clearscreen.hoffset =  clearscreenhoffsetDefault / clockScale * 100;
-        clearscreen.voffset =  clearscreenvoffsetDefault / clockScale * 100;
-        clearscreen.width =  clearscreenwidthDefault / clockScale * 100;
-        clearscreen.height =  clearscreenheightDefault / clockScale * 100;
+        clearscreen.hoffset =  clearscreenhoffsetDefault * (clockScale / 100);
+        clearscreen.voffset =  clearscreenvoffsetDefault * (clockScale / 100);
+        clearscreen.width =  clearscreenwidthDefault * (clockScale / 100);
+        clearscreen.height =  clearscreenheightDefault * (clockScale / 100);
 
-        helpBottom.hoffset =  helpBottomhoffsetDefault / clockScale * 100;
-        helpBottom.voffset =  helpBottomvoffsetDefault / clockScale * 100;
-        helpBottom.width =  helpBottomwidthDefault / clockScale * 100;
-        helpBottom.height =  helpBottomheightDefault / clockScale * 100;
+        helpBottom.hoffset =  helpBottomhoffsetDefault * (clockScale / 100);
+        helpBottom.voffset =  helpBottomvoffsetDefault * (clockScale / 100);
+        helpBottom.width =  helpBottomwidthDefault * (clockScale / 100);
+        helpBottom.height =  helpBottomheightDefault * (clockScale / 100);
 
-        backscreen.hoffset = backscreenhoffsetCurrent / clockScale * 100;
+        backscreen.hoffset = backscreenhoffsetCurrent * (clockScale / 100);
 
          if (preferences.backscreenPrefFlg.value == "raised")
          {
-            backscreen.voffset = clearscreen.voffset + 5 / clockScale * 100;
+            backscreen.voffset = clearscreen.voffset + 5 * (clockScale / 100);
          }
          else if (preferences.backscreenPrefFlg.value == "lowered")
          {
-            backscreen.voffset = clearscreen.voffset + 225 / clockScale * 100;
+            backscreen.voffset = clearscreen.voffset + 225 * (clockScale / 100);
 
          }
 
-        backscreen.width =  backscreenwidthDefault / clockScale * 100;
-        backscreen.height =  backscreenheightDefault / clockScale * 100;
+        backscreen.width =  backscreenwidthDefault * (clockScale / 100);
+        backscreen.height =  backscreenheightDefault * (clockScale / 100);
 
-        clearscreen2.hoffset =  clearscreen2hoffsetDefault / clockScale * 100;
-        clearscreen2.voffset =  clearscreen2voffsetDefault / clockScale * 100;
-        clearscreen2.width =  clearscreen2widthDefault / clockScale * 100;
-        clearscreen2.height =  clearscreen2heightDefault / clockScale * 100;
+        clearscreen2.hoffset =  clearscreen2hoffsetDefault * (clockScale / 100);
+        clearscreen2.voffset =  clearscreen2voffsetDefault * (clockScale / 100);
+        clearscreen2.width =  clearscreen2widthDefault * (clockScale / 100);
+        clearscreen2.height =  clearscreen2heightDefault * (clockScale / 100);
 
-        pastimage.hoffset =  pastimagehoffsetDefault / clockScale * 100;
-        pastimage.voffset =  pastimagevoffsetDefault / clockScale * 100;
-        pastimage.width =  pastimagewidthDefault / clockScale * 100;
-        pastimage.height =  pastimageheightDefault / clockScale * 100;
+        pastimage.hoffset =  pastimagehoffsetDefault * (clockScale / 100);
+        pastimage.voffset =  pastimagevoffsetDefault * (clockScale / 100);
+        pastimage.width =  pastimagewidthDefault * (clockScale / 100);
+        pastimage.height =  pastimageheightDefault * (clockScale / 100);
 
-        lhHinge.hoffset =  lhHingehoffsetDefault / clockScale * 100;
-        lhHinge.voffset =  lhHingevoffsetDefault / clockScale * 100;
-        lhHinge.width =  lhHingewidthDefault / clockScale * 100;
-        lhHinge.height =  lhHingeheightDefault / clockScale * 100;
+        lhHinge.hoffset =  lhHingehoffsetDefault * (clockScale / 100);
+        lhHinge.voffset =  lhHingevoffsetDefault * (clockScale / 100);
+        lhHinge.width =  lhHingewidthDefault * (clockScale / 100);
+        lhHinge.height =  lhHingeheightDefault * (clockScale / 100);
 
-        rhHinge.hoffset =  rhHingehoffsetDefault / clockScale * 100;
-        rhHinge.voffset =  rhHingevoffsetDefault / clockScale * 100;
-        rhHinge.width =  rhHingewidthDefault / clockScale * 100;
-        rhHinge.height =  rhHingeheightDefault / clockScale * 100;
+        rhHinge.hoffset =  rhHingehoffsetDefault * (clockScale / 100);
+        rhHinge.voffset =  rhHingevoffsetDefault * (clockScale / 100);
+        rhHinge.width =  rhHingewidthDefault * (clockScale / 100);
+        rhHinge.height =  rhHingeheightDefault * (clockScale / 100);
 
-        till01.hoffset =  till01hoffsetDefault / clockScale * 100;
-        till01.voffset =  till01voffsetDefault / clockScale * 100;
-        till01.width =  till01widthDefault / clockScale * 100;
-        till01.height =  till01heightDefault / clockScale * 100;
+        till01.hoffset =  till01hoffsetDefault * (clockScale / 100);
+        till01.voffset =  till01voffsetDefault * (clockScale / 100);
+        till01.width =  till01widthDefault * (clockScale / 100);
+        till01.height =  till01heightDefault * (clockScale / 100);
 
-        till02.hoffset =  till02hoffsetDefault / clockScale * 100;
-        till02.voffset =  till02voffsetDefault / clockScale * 100;
-        till02.width =  till02widthDefault / clockScale * 100;
-        till02.height =  till02heightDefault / clockScale * 100;
+        till02.hoffset =  till02hoffsetDefault * (clockScale / 100);
+        till02.voffset =  till02voffsetDefault * (clockScale / 100);
+        till02.width =  till02widthDefault * (clockScale / 100);
+        till02.height =  till02heightDefault * (clockScale / 100);
 
-        till03.hoffset =  till03hoffsetDefault / clockScale * 100;
-        till03.voffset =  till03voffsetDefault / clockScale * 100;
-        till03.width =  till03widthDefault / clockScale * 100;
-        till03.height =  till03heightDefault / clockScale * 100;
+        till03.hoffset =  till03hoffsetDefault * (clockScale / 100);
+        till03.voffset =  till03voffsetDefault * (clockScale / 100);
+        till03.width =  till03widthDefault * (clockScale / 100);
+        till03.height =  till03heightDefault * (clockScale / 100);
 
-        till04.hoffset =  till04hoffsetDefault / clockScale * 100;
-        till04.voffset =  till04voffsetDefault / clockScale * 100;
-        till04.width =  till04widthDefault / clockScale * 100;
-        till04.height =  till04heightDefault / clockScale * 100;
+        till04.hoffset =  till04hoffsetDefault * (clockScale / 100);
+        till04.voffset =  till04voffsetDefault * (clockScale / 100);
+        till04.width =  till04widthDefault * (clockScale / 100);
+        till04.height =  till04heightDefault * (clockScale / 100);
 
-        till05.hoffset =  till05hoffsetDefault / clockScale * 100;
-        till05.voffset =  till05voffsetDefault / clockScale * 100;
-        till05.width =  till05widthDefault / clockScale * 100;
-        till05.height =  till05heightDefault / clockScale * 100;
+        till05.hoffset =  till05hoffsetDefault * (clockScale / 100);
+        till05.voffset =  till05voffsetDefault * (clockScale / 100);
+        till05.width =  till05widthDefault * (clockScale / 100);
+        till05.height =  till05heightDefault * (clockScale / 100);
 
-        pendulumSet.hoffset =  pendulumSethoffsetDefault / clockScale * 100;
+        pendulumSet.hoffset =  pendulumSethoffsetDefault * (clockScale / 100);
         if (preferences.pendulumPref.value == "swing")
          {
-             pendulumSet.voffset = ( 292 / clockScale * 100);
+             pendulumSet.voffset = ( 292 * (clockScale / 100));
              //print("here 2 swing voffset "+ pendulumSet.voffset);
              //print("here 2 swing vRegistrationPoint "+ pendulumSet.vRegistrationPoint);
          }
         else
          {   // not quite sure why but
              if (pendulumPressed == 1) {
-                pendulumSet.voffset = ( 292 / clockScale * 100);  // when the pendulumSet has been pressed
+                pendulumSet.voffset = ( 292 * (clockScale / 100));  // when the pendulumSet has been pressed
              } else {
-                pendulumSet.voffset = ( 587 / clockScale * 100);  // when the pendulum has never been swung
+                pendulumSet.voffset = ( 587 * (clockScale / 100));  // when the pendulum has never been swung
              }
              //print("here 3 noswing voffset "+ pendulumSet.voffset);
              //print("here 3 noswing vRegistrationPoint "+ pendulumSet.vRegistrationPoint);
         }
-        pendulumSet.width =  pendulumSetwidthDefault / clockScale * 100;
-        pendulumSet.height =  pendulumSetheightDefault / clockScale * 100;
-        pendulumSet.hRegistrationPoint = pendulumSethRegistrationPointDefault / clockScale * 100;
-        pendulumSet.vRegistrationPoint = pendulumSetvRegistrationPointDefault / clockScale * 100;
+        pendulumSet.width =  pendulumSetwidthDefault * (clockScale / 100);
+        pendulumSet.height =  pendulumSetheightDefault * (clockScale / 100);
+        pendulumSet.hRegistrationPoint = pendulumSethRegistrationPointDefault * (clockScale / 100);
+        pendulumSet.vRegistrationPoint = pendulumSetvRegistrationPointDefault * (clockScale / 100);
 
-        dropdown.hoffset =  dropdownhoffsetDefault / clockScale * 100;
-        dropdown.voffset =  dropdownvoffsetDefault / clockScale * 100;
-        dropdown.width =  dropdownwidthDefault / clockScale * 100;
-        dropdown.height =  dropdownheightDefault / clockScale * 100;
+        dropdown.hoffset =  dropdownhoffsetDefault * (clockScale / 100);
+        dropdown.voffset =  dropdownvoffsetDefault * (clockScale / 100);
+        dropdown.width =  dropdownwidthDefault * (clockScale / 100);
+        dropdown.height =  dropdownheightDefault * (clockScale / 100);
 
-        drawstring.hoffset =  drawstringhoffsetDefault / clockScale * 100;
-        drawstring.voffset =  drawstringvoffsetDefault / clockScale * 100;
-        drawstring.width =  drawstringwidthDefault / clockScale * 100;
-        drawstring.height =  drawstringheightDefault / clockScale * 100;
+        drawstring.hoffset =  drawstringhoffsetDefault * (clockScale / 100);
+        drawstring.voffset =  drawstringvoffsetDefault * (clockScale / 100);
+        drawstring.width =  drawstringwidthDefault * (clockScale / 100);
+        drawstring.height =  drawstringheightDefault * (clockScale / 100);
 
-        brassbuttonH.hoffset =  brassbuttonHhoffsetDefault / clockScale * 100;
-        brassbuttonH.voffset =  brassbuttonHvoffsetDefault / clockScale * 100;
-        brassbuttonH.width =  brassbuttonHwidthDefault / clockScale * 100;
-        brassbuttonH.height =  brassbuttonHheightDefault / clockScale * 100;
+        brassbuttonH.hoffset =  brassbuttonHhoffsetDefault * (clockScale / 100);
+        brassbuttonH.voffset =  brassbuttonHvoffsetDefault * (clockScale / 100);
+        brassbuttonH.width =  brassbuttonHwidthDefault * (clockScale / 100);
+        brassbuttonH.height =  brassbuttonHheightDefault * (clockScale / 100);
 
-        brassbuttonA.hoffset =  brassbuttonAhoffsetDefault / clockScale * 100;
-        brassbuttonA.voffset =  brassbuttonAvoffsetDefault / clockScale * 100;
-        brassbuttonA.width =  brassbuttonAwidthDefault / clockScale * 100;
-        brassbuttonA.height =  brassbuttonAheightDefault / clockScale * 100;
+        brassbuttonA.hoffset =  brassbuttonAhoffsetDefault * (clockScale / 100);
+        brassbuttonA.voffset =  brassbuttonAvoffsetDefault * (clockScale / 100);
+        brassbuttonA.width =  brassbuttonAwidthDefault * (clockScale / 100);
+        brassbuttonA.height =  brassbuttonAheightDefault * (clockScale / 100);
 
-        brassbuttonL.hoffset =  brassbuttonLhoffsetDefault / clockScale * 100;
-        brassbuttonL.voffset =  brassbuttonLvoffsetDefault / clockScale * 100;
-        brassbuttonL.width =  brassbuttonLwidthDefault / clockScale * 100;
-        brassbuttonL.height =  brassbuttonLheightDefault / clockScale * 100;
+        brassbuttonL.hoffset =  brassbuttonLhoffsetDefault * (clockScale / 100);
+        brassbuttonL.voffset =  brassbuttonLvoffsetDefault * (clockScale / 100);
+        brassbuttonL.width =  brassbuttonLwidthDefault * (clockScale / 100);
+        brassbuttonL.height =  brassbuttonLheightDefault * (clockScale / 100);
 
-        brassbuttonM.hoffset =  brassbuttonMhoffsetDefault / clockScale * 100;
-        brassbuttonM.voffset =  brassbuttonMvoffsetDefault / clockScale * 100;
-        brassbuttonM.width =  brassbuttonMwidthDefault / clockScale * 100;
-        brassbuttonM.height =  brassbuttonMheightDefault / clockScale * 100;
+        brassbuttonM.hoffset =  brassbuttonMhoffsetDefault * (clockScale / 100);
+        brassbuttonM.voffset =  brassbuttonMvoffsetDefault * (clockScale / 100);
+        brassbuttonM.width =  brassbuttonMwidthDefault * (clockScale / 100);
+        brassbuttonM.height =  brassbuttonMheightDefault * (clockScale / 100);
 
-        brassbuttonP.hoffset =  brassbuttonPhoffsetDefault / clockScale * 100;
-        brassbuttonP.voffset =  brassbuttonPvoffsetDefault / clockScale * 100;
-        brassbuttonP.width =  brassbuttonPwidthDefault / clockScale * 100;
-        brassbuttonP.height =  brassbuttonPheightDefault / clockScale * 100;
+        brassbuttonP.hoffset =  brassbuttonPhoffsetDefault * (clockScale / 100);
+        brassbuttonP.voffset =  brassbuttonPvoffsetDefault * (clockScale / 100);
+        brassbuttonP.width =  brassbuttonPwidthDefault * (clockScale / 100);
+        brassbuttonP.height =  brassbuttonPheightDefault * (clockScale / 100);
 
-        woodenBar.hoffset =  woodenBarhoffsetDefault / clockScale * 100;
-        woodenBar.voffset =  woodenBarvoffsetDefault / clockScale * 100;
-        woodenBar.width =  woodenBarwidthDefault / clockScale * 100;
-        woodenBar.height =  woodenBarheightDefault / clockScale * 100;
+        woodenBar.hoffset =  woodenBarhoffsetDefault * (clockScale / 100);
+        woodenBar.voffset =  woodenBarvoffsetDefault * (clockScale / 100);
+        woodenBar.width =  woodenBarwidthDefault * (clockScale / 100);
+        woodenBar.height =  woodenBarheightDefault * (clockScale / 100);
 
-        bigdropdowncanvas.hoffset =  bigdropdowncanvashoffsetDefault / clockScale * 100;
-        bigdropdowncanvas.voffset =  bigdropdowncanvasvoffsetDefault / clockScale * 100;
-        bigdropdowncanvas.width =  bigdropdowncanvaswidthDefault / clockScale * 100;
-        bigdropdowncanvas.height =  bigdropdowncanvasheightDefault / clockScale * 100;
+        bigdropdowncanvas.hoffset =  bigdropdowncanvashoffsetDefault * (clockScale / 100);
+        bigdropdowncanvas.voffset =  bigdropdowncanvasvoffsetDefault * (clockScale / 100);
+        bigdropdowncanvas.width =  bigdropdowncanvaswidthDefault * (clockScale / 100);
+        bigdropdowncanvas.height =  bigdropdowncanvasheightDefault * (clockScale / 100);
 
-        helpbrassbutton.hoffset =  helpbrassbuttonhoffsetDefault / clockScale * 100;
-        helpbrassbutton.voffset =  helpbrassbuttonvoffsetDefault / clockScale * 100;
-        helpbrassbutton.width =  helpbrassbuttonwidthDefault / clockScale * 100;
-        helpbrassbutton.height =  helpbrassbuttonheightDefault / clockScale * 100;
+        helpbrassbutton.hoffset =  helpbrassbuttonhoffsetDefault * (clockScale / 100);
+        helpbrassbutton.voffset =  helpbrassbuttonvoffsetDefault * (clockScale / 100);
+        helpbrassbutton.width =  helpbrassbuttonwidthDefault * (clockScale / 100);
+        helpbrassbutton.height =  helpbrassbuttonheightDefault * (clockScale / 100);
 
-        helptext.hoffset =  helptexthoffsetDefault / clockScale * 100;
-        helptext.voffset =  helptextvoffsetDefault / clockScale * 100;
-        helptext.width =  helptextwidthDefault / clockScale * 100;
-        helptext.height =  helptextheightDefault / clockScale * 100;
+        helptext.hoffset =  helptexthoffsetDefault * (clockScale / 100);
+        helptext.voffset =  helptextvoffsetDefault * (clockScale / 100);
+        helptext.width =  helptextwidthDefault * (clockScale / 100);
+        helptext.height =  helptextheightDefault * (clockScale / 100);
 
-        termstext.hoffset =  termstexthoffsetDefault / clockScale * 100;
-        termstext.voffset =  termstextvoffsetDefault / clockScale * 100;
-        termstext.width =  termstextwidthDefault / clockScale * 100;
-        termstext.height =  termstextheightDefault / clockScale * 100;
+        termstext.hoffset =  termstexthoffsetDefault * (clockScale / 100);
+        termstext.voffset =  termstextvoffsetDefault * (clockScale / 100);
+        termstext.width =  termstextwidthDefault * (clockScale / 100);
+        termstext.height =  termstextheightDefault * (clockScale / 100);
 
-        alarmtext.hoffset =  alarmtexthoffsetDefault / clockScale * 100;
-        alarmtext.voffset =  alarmtextvoffsetDefault / clockScale * 100;
-        alarmtext.width =  alarmtextwidthDefault / clockScale * 100;
-        alarmtext.height =  alarmtextheightDefault / clockScale * 100;
+        alarmtext.hoffset =  alarmtexthoffsetDefault * (clockScale / 100);
+        alarmtext.voffset =  alarmtextvoffsetDefault * (clockScale / 100);
+        alarmtext.width =  alarmtextwidthDefault * (clockScale / 100);
+        alarmtext.height =  alarmtextheightDefault * (clockScale / 100);
 
-        helpDrawstring.hoffset =  helpDrawstringhoffsetDefault / clockScale * 100;
-        helpDrawstring.voffset =  helpDrawstringvoffsetDefault / clockScale * 100;
-        helpDrawstring.width =  helpDrawstringwidthDefault / clockScale * 100;
-        helpDrawstring.height =  helpDrawstringheightDefault / clockScale * 100;
+        helpDrawstring.hoffset =  helpDrawstringhoffsetDefault * (clockScale / 100);
+        helpDrawstring.voffset =  helpDrawstringvoffsetDefault * (clockScale / 100);
+        helpDrawstring.width =  helpDrawstringwidthDefault * (clockScale / 100);
+        helpDrawstring.height =  helpDrawstringheightDefault * (clockScale / 100);
 
-        backgroundItems.hoffset =  backgroundItemshoffsetDefault / clockScale * 100;
-        backgroundItems.voffset =  backgroundItemsvoffsetDefault / clockScale * 100;
-        backgroundItems.width =  backgroundItemswidthDefault / clockScale * 100;
-        backgroundItems.height =  backgroundItemsheightDefault / clockScale * 100;
+        backgroundItems.hoffset =  backgroundItemshoffsetDefault * (clockScale / 100);
+        backgroundItems.voffset =  backgroundItemsvoffsetDefault * (clockScale / 100);
+        backgroundItems.width =  backgroundItemswidthDefault * (clockScale / 100);
+        backgroundItems.height =  backgroundItemsheightDefault * (clockScale / 100);
 
-        bottomBoxSet.hoffset =  bottomBoxSethoffsetDefault / clockScale * 100;
-        bottomBoxSet.voffset =  bottomBoxSetvoffsetDefault / clockScale * 100;
-        bottomBoxSet.width =  bottomBoxSetwidthDefault / clockScale * 100;
-        bottomBoxSet.height =  bottomBoxSetheightDefault / clockScale * 100;
+        bottomBoxSet.hoffset =  bottomBoxSethoffsetDefault * (clockScale / 100);
+        bottomBoxSet.voffset =  bottomBoxSetvoffsetDefault * (clockScale / 100);
+        bottomBoxSet.width =  bottomBoxSetwidthDefault * (clockScale / 100);
+        bottomBoxSet.height =  bottomBoxSetheightDefault * (clockScale / 100);
 
-        heaterCoil.hoffset =  heaterCoilhoffsetDefault / clockScale * 100;
-        heaterCoil.voffset =  heaterCoilvoffsetDefault / clockScale * 100;
-        heaterCoil.width =  heaterCoilwidthDefault / clockScale * 100;
-        heaterCoil.height =  heaterCoilheightDefault / clockScale * 100;
+        heaterCoil.hoffset =  heaterCoilhoffsetDefault * (clockScale / 100);
+        heaterCoil.voffset =  heaterCoilvoffsetDefault * (clockScale / 100);
+        heaterCoil.width =  heaterCoilwidthDefault * (clockScale / 100);
+        heaterCoil.height =  heaterCoilheightDefault * (clockScale / 100);
 
-        orangeHeaterGlow.hoffset =  orangeHeaterGlowhoffsetDefault / clockScale * 100;
-        orangeHeaterGlow.voffset =  orangeHeaterGlowvoffsetDefault / clockScale * 100;
-        orangeHeaterGlow.width =  orangeHeaterGlowwidthDefault / clockScale * 100;
-        orangeHeaterGlow.height =  orangeHeaterGlowheightDefault / clockScale * 100;
+        orangeHeaterGlow.hoffset =  orangeHeaterGlowhoffsetDefault * (clockScale / 100);
+        orangeHeaterGlow.voffset =  orangeHeaterGlowvoffsetDefault * (clockScale / 100);
+        orangeHeaterGlow.width =  orangeHeaterGlowwidthDefault * (clockScale / 100);
+        orangeHeaterGlow.height =  orangeHeaterGlowheightDefault * (clockScale / 100);
 
-        meridienLetterSet.hoffset =  meridienLetterSethoffsetDefault / clockScale * 100;
-        meridienLetterSet.voffset =  meridienLetterSetvoffsetDefault / clockScale * 100;
-        meridienLetterSet.width =  meridienLetterSetwidthDefault / clockScale * 100;
-        meridienLetterSet.height =  meridienLetterSetheightDefault / clockScale * 100;
+        meridienLetterSet.hoffset =  meridienLetterSethoffsetDefault * (clockScale / 100);
+        meridienLetterSet.voffset =  meridienLetterSetvoffsetDefault * (clockScale / 100);
+        meridienLetterSet.width =  meridienLetterSetwidthDefault * (clockScale / 100);
+        meridienLetterSet.height =  meridienLetterSetheightDefault * (clockScale / 100);
 
-        antipostLetterSet.hoffset =  antipostLetterSethoffsetDefault / clockScale * 100;
-        antipostLetterSet.voffset =  antipostLetterSetvoffsetDefault / clockScale * 100;
-        antipostLetterSet.width =  antipostLetterSetwidthDefault / clockScale * 100;
-        antipostLetterSet.height =  antipostLetterSetheightDefault / clockScale * 100;
+        antipostLetterSet.hoffset =  antipostLetterSethoffsetDefault * (clockScale / 100);
+        antipostLetterSet.voffset =  antipostLetterSetvoffsetDefault * (clockScale / 100);
+        antipostLetterSet.width =  antipostLetterSetwidthDefault * (clockScale / 100);
+        antipostLetterSet.height =  antipostLetterSetheightDefault * (clockScale / 100);
 
-        monthLetter1LetterSet.hoffset =  monthLetter1LetterSethoffsetDefault / clockScale * 100;
-        monthLetter1LetterSet.voffset =  monthLetter1LetterSetvoffsetDefault / clockScale * 100;
-        monthLetter1LetterSet.width =  monthLetter1LetterSetwidthDefault / clockScale * 100;
-        monthLetter1LetterSet.height =  monthLetter1LetterSetheightDefault / clockScale * 100;
+        monthLetter1LetterSet.hoffset =  monthLetter1LetterSethoffsetDefault * (clockScale / 100);
+        monthLetter1LetterSet.voffset =  monthLetter1LetterSetvoffsetDefault * (clockScale / 100);
+        monthLetter1LetterSet.width =  monthLetter1LetterSetwidthDefault * (clockScale / 100);
+        monthLetter1LetterSet.height =  monthLetter1LetterSetheightDefault * (clockScale / 100);
 
-        monthLetter3SetLetterSet.hoffset =  monthLetter3SetLetterSethoffsetDefault / clockScale * 100;
-        monthLetter3SetLetterSet.voffset =  monthLetter3SetLetterSetvoffsetDefault / clockScale * 100;
-        monthLetter3SetLetterSet.width =  monthLetter3SetLetterSetwidthDefault / clockScale * 100;
-        monthLetter3SetLetterSet.height =  monthLetter3SetLetterSetheightDefault / clockScale * 100;
+        monthLetter3SetLetterSet.hoffset =  monthLetter3SetLetterSethoffsetDefault * (clockScale / 100);
+        monthLetter3SetLetterSet.voffset =  monthLetter3SetLetterSetvoffsetDefault * (clockScale / 100);
+        monthLetter3SetLetterSet.width =  monthLetter3SetLetterSetwidthDefault * (clockScale / 100);
+        monthLetter3SetLetterSet.height =  monthLetter3SetLetterSetheightDefault * (clockScale / 100);
 
-        monthLetter2LetterSet.hoffset =  monthLetter2LetterSethoffsetDefault / clockScale * 100;
-        monthLetter2LetterSet.voffset =  monthLetter2LetterSetvoffsetDefault / clockScale * 100;
-        monthLetter2LetterSet.width =  monthLetter2LetterSetwidthDefault / clockScale * 100;
-        monthLetter2LetterSet.height =  monthLetter2LetterSetheightDefault / clockScale * 100;
+        monthLetter2LetterSet.hoffset =  monthLetter2LetterSethoffsetDefault * (clockScale / 100);
+        monthLetter2LetterSet.voffset =  monthLetter2LetterSetvoffsetDefault * (clockScale / 100);
+        monthLetter2LetterSet.width =  monthLetter2LetterSetwidthDefault * (clockScale / 100);
+        monthLetter2LetterSet.height =  monthLetter2LetterSetheightDefault * (clockScale / 100);
 
-        yearNumber4LetterSet.hoffset =  yearNumber4LetterSethoffsetDefault / clockScale * 100;
-        yearNumber4LetterSet.voffset =  yearNumber4LetterSetvoffsetDefault / clockScale * 100;
-        yearNumber4LetterSet.width =  yearNumber4LetterSetwidthDefault / clockScale * 100;
-        yearNumber4LetterSet.height =  yearNumber4LetterSetheightDefault / clockScale * 100;
+        yearNumber4LetterSet.hoffset =  yearNumber4LetterSethoffsetDefault * (clockScale / 100);
+        yearNumber4LetterSet.voffset =  yearNumber4LetterSetvoffsetDefault * (clockScale / 100);
+        yearNumber4LetterSet.width =  yearNumber4LetterSetwidthDefault * (clockScale / 100);
+        yearNumber4LetterSet.height =  yearNumber4LetterSetheightDefault * (clockScale / 100);
 
-        yearNumber3LetterSet.hoffset =  yearNumber3LetterSethoffsetDefault / clockScale * 100;
-        yearNumber3LetterSet.voffset =  yearNumber3LetterSetvoffsetDefault / clockScale * 100;
-        yearNumber3LetterSet.width =  yearNumber3LetterSetwidthDefault / clockScale * 100;
-        yearNumber3LetterSet.height =  yearNumber3LetterSetheightDefault / clockScale * 100;
+        yearNumber3LetterSet.hoffset =  yearNumber3LetterSethoffsetDefault * (clockScale / 100);
+        yearNumber3LetterSet.voffset =  yearNumber3LetterSetvoffsetDefault * (clockScale / 100);
+        yearNumber3LetterSet.width =  yearNumber3LetterSetwidthDefault * (clockScale / 100);
+        yearNumber3LetterSet.height =  yearNumber3LetterSetheightDefault * (clockScale / 100);
 
-        yearNumber2LetterSet.hoffset =  yearNumber2LetterSethoffsetDefault / clockScale * 100;
-        yearNumber2LetterSet.voffset =  yearNumber2LetterSetvoffsetDefault / clockScale * 100;
-        yearNumber2LetterSet.width =  yearNumber2LetterSetwidthDefault / clockScale * 100;
-        yearNumber2LetterSet.height =  yearNumber2LetterSetheightDefault / clockScale * 100;
+        yearNumber2LetterSet.hoffset =  yearNumber2LetterSethoffsetDefault * (clockScale / 100);
+        yearNumber2LetterSet.voffset =  yearNumber2LetterSetvoffsetDefault * (clockScale / 100);
+        yearNumber2LetterSet.width =  yearNumber2LetterSetwidthDefault * (clockScale / 100);
+        yearNumber2LetterSet.height =  yearNumber2LetterSetheightDefault * (clockScale / 100);
 
-        yearNumber1LetterSet.hoffset =  yearNumber1LetterSethoffsetDefault / clockScale * 100;
-        yearNumber1LetterSet.voffset =  yearNumber1LetterSetvoffsetDefault / clockScale * 100;
-        yearNumber1LetterSet.width =  yearNumber1LetterSetwidthDefault / clockScale * 100;
-        yearNumber1LetterSet.height =  yearNumber1LetterSetheightDefault / clockScale * 100;
+        yearNumber1LetterSet.hoffset =  yearNumber1LetterSethoffsetDefault * (clockScale / 100);
+        yearNumber1LetterSet.voffset =  yearNumber1LetterSetvoffsetDefault * (clockScale / 100);
+        yearNumber1LetterSet.width =  yearNumber1LetterSetwidthDefault * (clockScale / 100);
+        yearNumber1LetterSet.height =  yearNumber1LetterSetheightDefault * (clockScale / 100);
 
-        dayNumber2LetterSet.hoffset =  dayNumber2LetterSethoffsetDefault / clockScale * 100;
-        dayNumber2LetterSet.voffset =  dayNumber2LetterSetvoffsetDefault / clockScale * 100;
-        dayNumber2LetterSet.width =  dayNumber2LetterSetwidthDefault / clockScale * 100;
-        dayNumber2LetterSet.height =  dayNumber2LetterSetheightDefault / clockScale * 100;
+        dayNumber2LetterSet.hoffset =  dayNumber2LetterSethoffsetDefault * (clockScale / 100);
+        dayNumber2LetterSet.voffset =  dayNumber2LetterSetvoffsetDefault * (clockScale / 100);
+        dayNumber2LetterSet.width =  dayNumber2LetterSetwidthDefault * (clockScale / 100);
+        dayNumber2LetterSet.height =  dayNumber2LetterSetheightDefault * (clockScale / 100);
 
-        dayNumber1LetterSet.hoffset =  dayNumber1LetterSethoffsetDefault / clockScale * 100;
-        dayNumber1LetterSet.voffset =  dayNumber1LetterSetvoffsetDefault / clockScale * 100;
-        dayNumber1LetterSet.width =  dayNumber1LetterSetwidthDefault / clockScale * 100;
-        dayNumber1LetterSet.height =  dayNumber1LetterSetheightDefault / clockScale * 100;
+        dayNumber1LetterSet.hoffset =  dayNumber1LetterSethoffsetDefault * (clockScale / 100);
+        dayNumber1LetterSet.voffset =  dayNumber1LetterSetvoffsetDefault * (clockScale / 100);
+        dayNumber1LetterSet.width =  dayNumber1LetterSetwidthDefault * (clockScale / 100);
+        dayNumber1LetterSet.height =  dayNumber1LetterSetheightDefault * (clockScale / 100);
 
-        flag01.hoffset =  flag01hoffsetDefault / clockScale * 100;
-        flag01.voffset =  flag01voffsetDefault / clockScale * 100;
-        flag01.width =  flag01widthDefault / clockScale * 100;
-        flag01.height =  flag01heightDefault / clockScale * 100;
+        flag01.hoffset =  flag01hoffsetDefault * (clockScale / 100);
+        flag01.voffset =  flag01voffsetDefault * (clockScale / 100);
+        flag01.width =  flag01widthDefault * (clockScale / 100);
+        flag01.height =  flag01heightDefault * (clockScale / 100);
 
-        flag02.hoffset =  flag02hoffsetDefault / clockScale * 100;
-        flag02.voffset =  flag02voffsetDefault / clockScale * 100;
-        flag02.width =  flag02widthDefault / clockScale * 100;
-        flag02.height =  flag02heightDefault / clockScale * 100;
+        flag02.hoffset =  flag02hoffsetDefault * (clockScale / 100);
+        flag02.voffset =  flag02voffsetDefault * (clockScale / 100);
+        flag02.width =  flag02widthDefault * (clockScale / 100);
+        flag02.height =  flag02heightDefault * (clockScale / 100);
 
-        flag03.hoffset =  flag03hoffsetDefault / clockScale * 100;
-        flag03.voffset =  flag03voffsetDefault / clockScale * 100;
-        flag03.width =  flag03widthDefault / clockScale * 100;
-        flag03.height =  flag03heightDefault / clockScale * 100;
+        flag03.hoffset =  flag03hoffsetDefault * (clockScale / 100);
+        flag03.voffset =  flag03voffsetDefault * (clockScale / 100);
+        flag03.width =  flag03widthDefault * (clockScale / 100);
+        flag03.height =  flag03heightDefault * (clockScale / 100);
 
-        flag04.hoffset =  flag04hoffsetDefault / clockScale * 100;
-        flag04.voffset =  flag04voffsetDefault / clockScale * 100;
-        flag04.width =  flag04widthDefault / clockScale * 100;
-        flag04.height =  flag04heightDefault / clockScale * 100;
+        flag04.hoffset =  flag04hoffsetDefault * (clockScale / 100);
+        flag04.voffset =  flag04voffsetDefault * (clockScale / 100);
+        flag04.width =  flag04widthDefault * (clockScale / 100);
+        flag04.height =  flag04heightDefault * (clockScale / 100);
 
-        flag05.hoffset =  flag05hoffsetDefault / clockScale * 100;
-        flag05.voffset =  flag05voffsetDefault / clockScale * 100;
-        flag05.width =  flag05widthDefault / clockScale * 100;
-        flag05.height =  flag05heightDefault / clockScale * 100;
+        flag05.hoffset =  flag05hoffsetDefault * (clockScale / 100);
+        flag05.voffset =  flag05voffsetDefault * (clockScale / 100);
+        flag05.width =  flag05widthDefault * (clockScale / 100);
+        flag05.height =  flag05heightDefault * (clockScale / 100);
 
-        crank.hoffset =  crankhoffsetDefault / clockScale * 100;
-        crank.voffset =  crankvoffsetDefault / clockScale * 100;
-        crank.width =  crankwidthDefault / clockScale * 100;
-        crank.height =  crankheightDefault / clockScale * 100;
+        crank.hoffset =  crankhoffsetDefault * (clockScale / 100);
+        crank.voffset =  crankvoffsetDefault * (clockScale / 100);
+        crank.width =  crankwidthDefault * (clockScale / 100);
+        crank.height =  crankheightDefault * (clockScale / 100);
 
         // dean
         if (preferences.crankHandlePref.value == "down") {
-           crank.voffset=(377 / clockScale * 100);
+           crank.voffset=(377 * (clockScale / 100));
         } else {
-           crank.voffset=(340 / clockScale * 100);
+           crank.voffset=(340 * (clockScale / 100));
         }
 
-        topShelf.hoffset =  topShelfhoffsetDefault / clockScale * 100;
-        topShelf.voffset =  topShelfvoffsetDefault / clockScale * 100;
-        topShelf.width =  topShelfwidthDefault / clockScale * 100;
-        topShelf.height =  topShelfheightDefault / clockScale * 100;
+        topShelf.hoffset =  topShelfhoffsetDefault * (clockScale / 100);
+        topShelf.voffset =  topShelfvoffsetDefault * (clockScale / 100);
+        topShelf.width =  topShelfwidthDefault * (clockScale / 100);
+        topShelf.height =  topShelfheightDefault * (clockScale / 100);
 
-        mainCasingSurround.hoffset =  mainCasingSurroundhoffsetDefault / clockScale * 100;
-        mainCasingSurround.voffset =  mainCasingSurroundvoffsetDefault / clockScale * 100;
-        mainCasingSurround.width =  mainCasingSurroundwidthDefault / clockScale * 100;
-        mainCasingSurround.height =  mainCasingSurroundheightDefault / clockScale * 100;
+        mainCasingSurround.hoffset =  mainCasingSurroundhoffsetDefault * (clockScale / 100);
+        mainCasingSurround.voffset =  mainCasingSurroundvoffsetDefault * (clockScale / 100);
+        mainCasingSurround.width =  mainCasingSurroundwidthDefault * (clockScale / 100);
+        mainCasingSurround.height =  mainCasingSurroundheightDefault * (clockScale / 100);
 
-        cableCorner.hoffset =  cableCornerhoffsetDefault / clockScale * 100;
-        cableCorner.voffset =  cableCornervoffsetDefault / clockScale * 100;
-        cableCorner.width =  cableCornerwidthDefault / clockScale * 100;
-        cableCorner.height =  cableCornerheightDefault / clockScale * 100;
+        cableCorner.hoffset =  cableCornerhoffsetDefault * (clockScale / 100);
+        cableCorner.voffset =  cableCornervoffsetDefault * (clockScale / 100);
+        cableCorner.width =  cableCornerwidthDefault * (clockScale / 100);
+        cableCorner.height =  cableCornerheightDefault * (clockScale / 100);
 
-        brassButtonS.hoffset =  brassButtonShoffsetDefault / clockScale * 100;
-        brassButtonS.voffset =  brassButtonSvoffsetDefault / clockScale * 100;
-        brassButtonS.width =  brassButtonSwidthDefault / clockScale * 100;
-        brassButtonS.height =  brassButtonSheightDefault / clockScale * 100;
+        brassButtonS.hoffset =  brassButtonShoffsetDefault * (clockScale / 100);
+        brassButtonS.voffset =  brassButtonSvoffsetDefault * (clockScale / 100);
+        brassButtonS.width =  brassButtonSwidthDefault * (clockScale / 100);
+        brassButtonS.height =  brassButtonSheightDefault * (clockScale / 100);
 
-        brassButtonW.hoffset =  brassButtonWhoffsetDefault / clockScale * 100;
-        brassButtonW.voffset =  brassButtonWvoffsetDefault / clockScale * 100;
-        brassButtonW.width =  brassButtonWwidthDefault / clockScale * 100;
-        brassButtonW.height =  brassButtonWheightDefault / clockScale * 100;
+        brassButtonW.hoffset =  brassButtonWhoffsetDefault * (clockScale / 100);
+        brassButtonW.voffset =  brassButtonWvoffsetDefault * (clockScale / 100);
+        brassButtonW.width =  brassButtonWwidthDefault * (clockScale / 100);
+        brassButtonW.height =  brassButtonWheightDefault * (clockScale / 100);
 
-        topDigitalClock.hoffset =  topDigitalClockhoffsetDefault / clockScale * 100;
-        topDigitalClock.voffset =  topDigitalClockvoffsetDefault / clockScale * 100;
-        topDigitalClock.width =  topDigitalClockwidthDefault / clockScale * 100;
-        topDigitalClock.height =  topDigitalClockheightDefault / clockScale * 100;
+        topDigitalClock.hoffset =  topDigitalClockhoffsetDefault * (clockScale / 100);
+        topDigitalClock.voffset =  topDigitalClockvoffsetDefault * (clockScale / 100);
+        topDigitalClock.width =  topDigitalClockwidthDefault * (clockScale / 100);
+        topDigitalClock.height =  topDigitalClockheightDefault * (clockScale / 100);
 
-        minutesNumber2Set.hoffset =  minutesNumber2SethoffsetDefault / clockScale * 100;
-        minutesNumber2Set.voffset =  minutesNumber2SetvoffsetDefault / clockScale * 100;
-        minutesNumber2Set.width =  minutesNumber2SetwidthDefault / clockScale * 100;
-        minutesNumber2Set.height =  minutesNumber2SetheightDefault / clockScale * 100;
+        minutesNumber2Set.hoffset =  minutesNumber2SethoffsetDefault * (clockScale / 100);
+        minutesNumber2Set.voffset =  minutesNumber2SetvoffsetDefault * (clockScale / 100);
+        minutesNumber2Set.width =  minutesNumber2SetwidthDefault * (clockScale / 100);
+        minutesNumber2Set.height =  minutesNumber2SetheightDefault * (clockScale / 100);
 
-        minutesNumber1Set.hoffset =  minutesNumber1SethoffsetDefault / clockScale * 100;
-        minutesNumber1Set.voffset =  minutesNumber1SetvoffsetDefault / clockScale * 100;
-        minutesNumber1Set.width =  minutesNumber1SetwidthDefault / clockScale * 100;
-        minutesNumber1Set.height =  minutesNumber1SetheightDefault / clockScale * 100;
+        minutesNumber1Set.hoffset =  minutesNumber1SethoffsetDefault * (clockScale / 100);
+        minutesNumber1Set.voffset =  minutesNumber1SetvoffsetDefault * (clockScale / 100);
+        minutesNumber1Set.width =  minutesNumber1SetwidthDefault * (clockScale / 100);
+        minutesNumber1Set.height =  minutesNumber1SetheightDefault * (clockScale / 100);
 
-        hour2LetterSet.hoffset =  hour2LetterSethoffsetDefault / clockScale * 100;
-        hour2LetterSet.voffset =  hour2LetterSetvoffsetDefault / clockScale * 100;
-        hour2LetterSet.width =  hour2LetterSetwidthDefault / clockScale * 100;
-        hour2LetterSet.height =  hour2LetterSetheightDefault / clockScale * 100;
+        hour2LetterSet.hoffset =  hour2LetterSethoffsetDefault * (clockScale / 100);
+        hour2LetterSet.voffset =  hour2LetterSetvoffsetDefault * (clockScale / 100);
+        hour2LetterSet.width =  hour2LetterSetwidthDefault * (clockScale / 100);
+        hour2LetterSet.height =  hour2LetterSetheightDefault * (clockScale / 100);
 
-        hour1LetterSet.hoffset =  hour1LetterSethoffsetDefault / clockScale * 100;
-        hour1LetterSet.voffset =  hour1LetterSetvoffsetDefault / clockScale * 100;
-        hour1LetterSet.width =  hour1LetterSetwidthDefault / clockScale * 100;
-        hour1LetterSet.height =  hour1LetterSetheightDefault / clockScale * 100;
+        hour1LetterSet.hoffset =  hour1LetterSethoffsetDefault * (clockScale / 100);
+        hour1LetterSet.voffset =  hour1LetterSetvoffsetDefault * (clockScale / 100);
+        hour1LetterSet.width =  hour1LetterSetwidthDefault * (clockScale / 100);
+        hour1LetterSet.height =  hour1LetterSetheightDefault * (clockScale / 100);
 
-        cableWheelSet.hoffset =  cableWheelSethoffsetDefault / clockScale * 100;
-        cableWheelSet.voffset =  cableWheelSetvoffsetDefault / clockScale * 100;
-        cableWheelSet.width =  cableWheelSetwidthDefault / clockScale * 100;
-        cableWheelSet.height =  cableWheelSetheightDefault / clockScale * 100;
+        cableWheelSet.hoffset =  cableWheelSethoffsetDefault * (clockScale / 100);
+        cableWheelSet.voffset =  cableWheelSetvoffsetDefault * (clockScale / 100);
+        cableWheelSet.width =  cableWheelSetwidthDefault * (clockScale / 100);
+        cableWheelSet.height =  cableWheelSetheightDefault * (clockScale / 100);
 
-        bar.hoffset =  barhoffsetDefault / clockScale * 100;
-        bar.voffset =  barvoffsetDefault / clockScale * 100;
-        bar.width =  barwidthDefault / clockScale * 100;
-        bar.height =  barheightDefault / clockScale * 100;
+        bar.hoffset =  barhoffsetDefault * (clockScale / 100);
+        bar.voffset =  barvoffsetDefault * (clockScale / 100);
+        bar.width =  barwidthDefault * (clockScale / 100);
+        bar.height =  barheightDefault * (clockScale / 100);
 
-        sliderSet.hoffset =  sliderSethoffsetDefault / clockScale * 100;
-        sliderSet.voffset =  sliderSetvoffsetDefault / clockScale * 100;
-        sliderSet.width =  sliderSetwidthDefault / clockScale * 100;
-        sliderSet.height =  sliderSetheightDefault / clockScale * 100;
+        sliderSet.hoffset =  sliderSethoffsetDefault * (clockScale / 100);
+        sliderSet.voffset =  sliderSetvoffsetDefault * (clockScale / 100);
+        sliderSet.width =  sliderSetwidthDefault * (clockScale / 100);
+        sliderSet.height =  sliderSetheightDefault * (clockScale / 100);
 
-        cable.hoffset =  cablehoffsetDefault / clockScale * 100;
-        cable.voffset =  cablevoffsetDefault / clockScale * 100;
-        cable.width =  cablewidthDefault / clockScale * 100;
-        cable.height =  cableheightDefault / clockScale * 100;
+        cable.hoffset =  cablehoffsetDefault * (clockScale / 100);
+        cable.voffset =  cablevoffsetDefault * (clockScale / 100);
+        cable.width =  cablewidthDefault * (clockScale / 100);
+        cable.height =  cableheightDefault * (clockScale / 100);
 
-        clockSet.hoffset =  clockSethoffsetDefault / clockScale * 100;
-        clockSet.voffset =  clockSetvoffsetDefault / clockScale * 100;
-        clockSet.width =  clockSetwidthDefault / clockScale * 100;
-        clockSet.height =  clockSetheightDefault / clockScale * 100;
+        clockSet.hoffset =  clockSethoffsetDefault * (clockScale / 100);
+        clockSet.voffset =  clockSetvoffsetDefault * (clockScale / 100);
+        clockSet.width =  clockSetwidthDefault * (clockScale / 100);
+        clockSet.height =  clockSetheightDefault * (clockScale / 100);
 
-        hourHand.hoffset =  hourHandhoffsetDefault / clockScale * 100;
-        hourHand.voffset =  hourHandvoffsetDefault / clockScale * 100;
-        hourHand.width =  hourHandwidthDefault / clockScale * 100;
-        hourHand.height =  hourHandheightDefault / clockScale * 100;
+        hourHand.hoffset =  hourHandhoffsetDefault * (clockScale / 100);
+        hourHand.voffset =  hourHandvoffsetDefault * (clockScale / 100);
+        hourHand.width =  hourHandwidthDefault * (clockScale / 100);
+        hourHand.height =  hourHandheightDefault * (clockScale / 100);
 
-        hourHand.hRegistrationPoint = hourHandhRegistrationPointDefault / clockScale * 100;
-        hourHand.vRegistrationPoint = hourHandvRegistrationPointDefault / clockScale * 100;
+        hourHand.hRegistrationPoint = hourHandhRegistrationPointDefault * (clockScale / 100);
+        hourHand.vRegistrationPoint = hourHandvRegistrationPointDefault * (clockScale / 100);
 
-        minuteHand.hoffset =  minuteHandhoffsetDefault / clockScale * 100;
-        minuteHand.voffset =  minuteHandvoffsetDefault / clockScale * 100;
-        minuteHand.width =  minuteHandwidthDefault / clockScale * 100;
-        minuteHand.height =  minuteHandheightDefault / clockScale * 100;
+        minuteHand.hoffset =  minuteHandhoffsetDefault * (clockScale / 100);
+        minuteHand.voffset =  minuteHandvoffsetDefault * (clockScale / 100);
+        minuteHand.width =  minuteHandwidthDefault * (clockScale / 100);
+        minuteHand.height =  minuteHandheightDefault * (clockScale / 100);
 
-        minuteHand.hRegistrationPoint = minuteHandhRegistrationPointDefault / clockScale * 100;
-        minuteHand.vRegistrationPoint = minuteHandvRegistrationPointDefault / clockScale * 100;
+        minuteHand.hRegistrationPoint = minuteHandhRegistrationPointDefault * (clockScale / 100);
+        minuteHand.vRegistrationPoint = minuteHandvRegistrationPointDefault * (clockScale / 100);
 
-        secondHand.hoffset =  secondHandhoffsetDefault / clockScale * 100;
-        secondHand.voffset =  secondHandvoffsetDefault / clockScale * 100;
-        secondHand.width =  secondHandwidthDefault / clockScale * 100;
-        secondHand.height =  secondHandheightDefault / clockScale * 100;
+        secondHand.hoffset =  secondHandhoffsetDefault * (clockScale / 100);
+        secondHand.voffset =  secondHandvoffsetDefault * (clockScale / 100);
+        secondHand.width =  secondHandwidthDefault * (clockScale / 100);
+        secondHand.height =  secondHandheightDefault * (clockScale / 100);
 
-        secondHand.hRegistrationPoint = secondHandhRegistrationPointDefault / clockScale * 100;
-        secondHand.vRegistrationPoint = secondHandvRegistrationPointDefault / clockScale * 100;
+        secondHand.hRegistrationPoint = secondHandhRegistrationPointDefault * (clockScale / 100);
+        secondHand.vRegistrationPoint = secondHandvRegistrationPointDefault * (clockScale / 100);
 
-        hole.hoffset =  holehoffsetDefault / clockScale * 100;
-        hole.voffset =  holevoffsetDefault / clockScale * 100;
-        hole.width =  holewidthDefault / clockScale * 100;
-        hole.height =  holeheightDefault / clockScale * 100;
+        hole.hoffset =  holehoffsetDefault * (clockScale / 100);
+        hole.voffset =  holevoffsetDefault * (clockScale / 100);
+        hole.width =  holewidthDefault * (clockScale / 100);
+        hole.height =  holeheightDefault * (clockScale / 100);
 
-        grommet.hoffset =  grommethoffsetDefault / clockScale * 100;
-        grommet.voffset =  grommetvoffsetDefault / clockScale * 100;
-        grommet.width =  grommetwidthDefault / clockScale * 100;
-        grommet.height =  grommetheightDefault / clockScale * 100;
+        grommet.hoffset =  grommethoffsetDefault * (clockScale / 100);
+        grommet.voffset =  grommetvoffsetDefault * (clockScale / 100);
+        grommet.width =  grommetwidthDefault * (clockScale / 100);
+        grommet.height =  grommetheightDefault * (clockScale / 100);
 
-        pin.hoffset =  pinhoffsetDefault / clockScale * 100;
-        pin.voffset =  pinvoffsetDefault / clockScale * 100;
-        pin.width =  pinwidthDefault / clockScale * 100;
-        pin.height =  pinheightDefault / clockScale * 100;
+        pin.hoffset =  pinhoffsetDefault * (clockScale / 100);
+        pin.voffset =  pinvoffsetDefault * (clockScale / 100);
+        pin.width =  pinwidthDefault * (clockScale / 100);
+        pin.height =  pinheightDefault * (clockScale / 100);
 
-        bellSet.hoffset =  bellSethoffsetDefault / clockScale * 100;
-        bellSet.voffset =  bellSetvoffsetDefault / clockScale * 100;
-        bellSet.width =  bellSetwidthDefault / clockScale * 100;
-        bellSet.height =  bellSetheightDefault / clockScale * 100;
+        bellSet.hoffset =  bellSethoffsetDefault * (clockScale / 100);
+        bellSet.voffset =  bellSetvoffsetDefault * (clockScale / 100);
+        bellSet.width =  bellSetwidthDefault * (clockScale / 100);
+        bellSet.height =  bellSetheightDefault * (clockScale / 100);
 
-        clapper.hoffset =  clapperhoffsetDefault / clockScale * 100;
-        clapper.voffset =  clappervoffsetDefault / clockScale * 100;
-        clapper.width =  clapperwidthDefault / clockScale * 100;
-        clapper.height =  clapperheightDefault / clockScale * 100;
+        clapper.hoffset =  clapperhoffsetDefault * (clockScale / 100);
+        clapper.voffset =  clappervoffsetDefault * (clockScale / 100);
+        clapper.width =  clapperwidthDefault * (clockScale / 100);
+        clapper.height =  clapperheightDefault * (clockScale / 100);
 
-        clapperRight.hoffset =  clapperRighthoffsetDefault / clockScale * 100;
-        clapperRight.voffset =  clapperRightvoffsetDefault / clockScale * 100;
-        clapperRight.width =  clapperRightwidthDefault / clockScale * 100;
-        clapperRight.height =  clapperRightheightDefault / clockScale * 100;
+        clapperRight.hoffset =  clapperRighthoffsetDefault * (clockScale / 100);
+        clapperRight.voffset =  clapperRightvoffsetDefault * (clockScale / 100);
+        clapperRight.width =  clapperRightwidthDefault * (clockScale / 100);
+        clapperRight.height =  clapperRightheightDefault * (clockScale / 100);
 
-        weekday.hoffset =  weekdayhoffsetDefault / clockScale * 100;
-        weekday.voffset =  weekdayvoffsetDefault / clockScale * 100;
-        weekday.width =  weekdaywidthDefault / clockScale * 100;
-        weekday.height =  weekdayheightDefault / clockScale * 100;
+        weekday.hoffset =  weekdayhoffsetDefault * (clockScale / 100);
+        weekday.voffset =  weekdayvoffsetDefault * (clockScale / 100);
+        weekday.width =  weekdaywidthDefault * (clockScale / 100);
+        weekday.height =  weekdayheightDefault * (clockScale / 100);
 
-        weekdaytext.hoffset =  weekdaytexthoffsetDefault / clockScale * 100;
-        weekdaytext.voffset =  weekdaytextvoffsetDefault / clockScale * 100;
-        weekdaytext.width =  weekdaytextwidthDefault / clockScale * 100;
-        weekdaytext.height =  weekdaytextheightDefault / clockScale * 100;
+        weekdaytext.hoffset =  weekdaytexthoffsetDefault * (clockScale / 100);
+        weekdaytext.voffset =  weekdaytextvoffsetDefault * (clockScale / 100);
+        weekdaytext.width =  weekdaytextwidthDefault * (clockScale / 100);
+        weekdaytext.height =  weekdaytextheightDefault * (clockScale / 100);
 
-        chain.hoffset =  chainhoffsetDefault / clockScale * 100;
-        chain.voffset =  chainvoffsetDefault / clockScale * 100;
-        chain.width =  chainwidthDefault / clockScale * 100;
-        chain.height =  chainheightDefault / clockScale * 100;
+        chain.hoffset =  chainhoffsetDefault * (clockScale / 100);
+        chain.voffset =  chainvoffsetDefault * (clockScale / 100);
+        chain.width =  chainwidthDefault * (clockScale / 100);
+        chain.height =  chainheightDefault * (clockScale / 100);
 
-        clockDeletion.hoffset =  clockDeletionhoffsetDefault / clockScale * 100;
-        clockDeletion.voffset =  clockDeletionvoffsetDefault / clockScale * 100;
-        clockDeletion.width =  clockDeletionwidthDefault / clockScale * 100;
-        clockDeletion.height =  clockDeletionheightDefault / clockScale * 100;
+        clockDeletion.hoffset =  clockDeletionhoffsetDefault * (clockScale / 100);
+        clockDeletion.voffset =  clockDeletionvoffsetDefault * (clockScale / 100);
+        clockDeletion.width =  clockDeletionwidthDefault * (clockScale / 100);
+        clockDeletion.height =  clockDeletionheightDefault * (clockScale / 100);
 
-        plaqueLink.hoffset =  plaqueLinkhoffsetDefault / clockScale * 100;
-        plaqueLink.voffset =  plaqueLinkvoffsetDefault / clockScale * 100;
-        plaqueLink.width =  plaqueLinkwidthDefault / clockScale * 100;
-        plaqueLink.height =  plaqueLinkheightDefault / clockScale * 100;
+        plaqueLink.hoffset =  plaqueLinkhoffsetDefault * (clockScale / 100);
+        plaqueLink.voffset =  plaqueLinkvoffsetDefault * (clockScale / 100);
+        plaqueLink.width =  plaqueLinkwidthDefault * (clockScale / 100);
+        plaqueLink.height =  plaqueLinkheightDefault * (clockScale / 100);
 
-        plaquetick.hoffset =  plaquetickhoffsetDefault / clockScale * 100;
-        plaquetick.voffset =  plaquetickvoffsetDefault / clockScale * 100;
-        plaquetick.width =  plaquetickwidthDefault / clockScale * 100;
-        plaquetick.height =  plaquetickheightDefault / clockScale * 100;
+        plaquetick.hoffset =  plaquetickhoffsetDefault * (clockScale / 100);
+        plaquetick.voffset =  plaquetickvoffsetDefault * (clockScale / 100);
+        plaquetick.width =  plaquetickwidthDefault * (clockScale / 100);
+        plaquetick.height =  plaquetickheightDefault * (clockScale / 100);
 
-        helpTop.hoffset =  helpTophoffsetDefault / clockScale * 100;
-        helpTop.voffset =  helpTopvoffsetDefault / clockScale * 100;
-        helpTop.width =  helpTopwidthDefault / clockScale * 100;
-        helpTop.height =  helpTopheightDefault / clockScale * 100;
+        helpTop.hoffset =  helpTophoffsetDefault * (clockScale / 100);
+        helpTop.voffset =  helpTopvoffsetDefault * (clockScale / 100);
+        helpTop.width =  helpTopwidthDefault * (clockScale / 100);
+        helpTop.height =  helpTopheightDefault * (clockScale / 100);
 
         //now change the fonts
 
-        terminal00.size = 8 / clockScale * 100;
-        terminal01.size = 8 / clockScale * 100;
-        terminal02.size = 8 / clockScale * 100;
-        terminal03.size = 8 / clockScale * 100;
-        terminal04.size = 8 / clockScale * 100;
-        terminal05.size = 8 / clockScale * 100;
-        terminal06.size = 8 / clockScale * 100;
-        terminal07.size = 8 / clockScale * 100;
-        terminal08.size = 8 / clockScale * 100;
-        terminal09.size = 8 / clockScale * 100;
-        terminal10.size = 8 / clockScale * 100;
-        terminal11.size = 8 / clockScale * 100;
-        terminal12.size = 8 / clockScale * 100;
-        terminal13.size = 8 / clockScale * 100;
-        terminal14.size = 8 / clockScale * 100;
-        terminal15.size = 8 / clockScale * 100;
+        terminal00.size = 8 * (clockScale / 100);
+        terminal01.size = 8 * (clockScale / 100);
+        terminal02.size = 8 * (clockScale / 100);
+        terminal03.size = 8 * (clockScale / 100);
+        terminal04.size = 8 * (clockScale / 100);
+        terminal05.size = 8 * (clockScale / 100);
+        terminal06.size = 8 * (clockScale / 100);
+        terminal07.size = 8 * (clockScale / 100);
+        terminal08.size = 8 * (clockScale / 100);
+        terminal09.size = 8 * (clockScale / 100);
+        terminal10.size = 8 * (clockScale / 100);
+        terminal11.size = 8 * (clockScale / 100);
+        terminal12.size = 8 * (clockScale / 100);
+        terminal13.size = 8 * (clockScale / 100);
+        terminal14.size = 8 * (clockScale / 100);
+        terminal15.size = 8 * (clockScale / 100);
 
-        terminal00.hoffset = terminal00hoffsetDefault / clockScale * 100;
-        terminal01.hoffset = terminal01hoffsetDefault / clockScale * 100;
-        terminal02.hoffset = terminal02hoffsetDefault / clockScale * 100;
-        terminal03.hoffset = terminal03hoffsetDefault / clockScale * 100;
-        terminal04.hoffset = terminal04hoffsetDefault / clockScale * 100;
-        terminal05.hoffset = terminal05hoffsetDefault / clockScale * 100;
-        terminal06.hoffset = terminal06hoffsetDefault / clockScale * 100;
-        terminal07.hoffset = terminal07hoffsetDefault / clockScale * 100;
-        terminal08.hoffset = terminal08hoffsetDefault / clockScale * 100;
-        terminal09.hoffset = terminal09hoffsetDefault / clockScale * 100;
-        terminal10.hoffset = terminal10hoffsetDefault / clockScale * 100;
-        terminal11.hoffset = terminal11hoffsetDefault / clockScale * 100;
-        terminal12.hoffset = terminal12hoffsetDefault / clockScale * 100;
-        terminal13.hoffset = terminal13hoffsetDefault / clockScale * 100;
-        terminal14.hoffset = terminal14hoffsetDefault / clockScale * 100;
-        terminal15.hoffset = terminal15hoffsetDefault / clockScale * 100;
+        terminal00.hoffset = terminal00hoffsetDefault * (clockScale / 100);
+        terminal01.hoffset = terminal01hoffsetDefault * (clockScale / 100);
+        terminal02.hoffset = terminal02hoffsetDefault * (clockScale / 100);
+        terminal03.hoffset = terminal03hoffsetDefault * (clockScale / 100);
+        terminal04.hoffset = terminal04hoffsetDefault * (clockScale / 100);
+        terminal05.hoffset = terminal05hoffsetDefault * (clockScale / 100);
+        terminal06.hoffset = terminal06hoffsetDefault * (clockScale / 100);
+        terminal07.hoffset = terminal07hoffsetDefault * (clockScale / 100);
+        terminal08.hoffset = terminal08hoffsetDefault * (clockScale / 100);
+        terminal09.hoffset = terminal09hoffsetDefault * (clockScale / 100);
+        terminal10.hoffset = terminal10hoffsetDefault * (clockScale / 100);
+        terminal11.hoffset = terminal11hoffsetDefault * (clockScale / 100);
+        terminal12.hoffset = terminal12hoffsetDefault * (clockScale / 100);
+        terminal13.hoffset = terminal13hoffsetDefault * (clockScale / 100);
+        terminal14.hoffset = terminal14hoffsetDefault * (clockScale / 100);
+        terminal15.hoffset = terminal15hoffsetDefault * (clockScale / 100);
 
 
-        terminal00.voffset = terminal00voffsetDefault / clockScale * 100;
-        terminal01.voffset = terminal01voffsetDefault / clockScale * 100;
-        terminal02.voffset = terminal02voffsetDefault / clockScale * 100;
-        terminal03.voffset = terminal03voffsetDefault / clockScale * 100;
-        terminal04.voffset = terminal04voffsetDefault / clockScale * 100;
-        terminal05.voffset = terminal05voffsetDefault / clockScale * 100;
-        terminal06.voffset = terminal06voffsetDefault / clockScale * 100;
-        terminal07.voffset = terminal07voffsetDefault / clockScale * 100;
-        terminal08.voffset = terminal08voffsetDefault / clockScale * 100;
-        terminal09.voffset = terminal09voffsetDefault / clockScale * 100;
-        terminal10.voffset = terminal10voffsetDefault / clockScale * 100;
-        terminal11.voffset = terminal11voffsetDefault / clockScale * 100;
-        terminal12.voffset = terminal12voffsetDefault / clockScale * 100;
-        terminal13.voffset = terminal13voffsetDefault / clockScale * 100;
-        terminal14.voffset = terminal14voffsetDefault / clockScale * 100;
-        terminal15.voffset = terminal15voffsetDefault / clockScale * 100;
+        terminal00.voffset = terminal00voffsetDefault * (clockScale / 100);
+        terminal01.voffset = terminal01voffsetDefault * (clockScale / 100);
+        terminal02.voffset = terminal02voffsetDefault * (clockScale / 100);
+        terminal03.voffset = terminal03voffsetDefault * (clockScale / 100);
+        terminal04.voffset = terminal04voffsetDefault * (clockScale / 100);
+        terminal05.voffset = terminal05voffsetDefault * (clockScale / 100);
+        terminal06.voffset = terminal06voffsetDefault * (clockScale / 100);
+        terminal07.voffset = terminal07voffsetDefault * (clockScale / 100);
+        terminal08.voffset = terminal08voffsetDefault * (clockScale / 100);
+        terminal09.voffset = terminal09voffsetDefault * (clockScale / 100);
+        terminal10.voffset = terminal10voffsetDefault * (clockScale / 100);
+        terminal11.voffset = terminal11voffsetDefault * (clockScale / 100);
+        terminal12.voffset = terminal12voffsetDefault * (clockScale / 100);
+        terminal13.voffset = terminal13voffsetDefault * (clockScale / 100);
+        terminal14.voffset = terminal14voffsetDefault * (clockScale / 100);
+        terminal15.voffset = terminal15voffsetDefault * (clockScale / 100);
 
-        Copyright.size = 10 / clockScale * 100;
-        Copyright.hoffset = CopyrighthoffsetDefault / clockScale * 100;
-        Copyright.voffset = CopyrightvoffsetDefault / clockScale * 100;
-        Terms.size = 10 / clockScale * 100;
-        Terms.hoffset = TermshoffsetDefault / clockScale * 100;
-        Terms.voffset = TermsvoffsetDefault / clockScale * 100;
-        Privacy.size = 10 / clockScale * 100;
-        Privacy.hoffset= PrivacyhoffsetDefault / clockScale * 100;
-        Privacy.voffset= PrivacyvoffsetDefault / clockScale * 100;
-        Download.size = 10 / clockScale * 100;
-        Download.hoffset = DownloadhoffsetDefault / clockScale * 100;
-        Download.voffset = DownloadvoffsetDefault / clockScale * 100;
-        Read.size = 10 / clockScale * 100;
-        Read.hoffset = ReadhoffsetDefault / clockScale * 100;
-        Read.voffset = ReadvoffsetDefault / clockScale * 100;
+        Copyright.size = 10 * (clockScale / 100);
+        Copyright.hoffset = CopyrighthoffsetDefault * (clockScale / 100);
+        Copyright.voffset = CopyrightvoffsetDefault * (clockScale / 100);
+        Terms.size = 10 * (clockScale / 100);
+        Terms.hoffset = TermshoffsetDefault * (clockScale / 100);
+        Terms.voffset = TermsvoffsetDefault * (clockScale / 100);
+        Privacy.size = 10 * (clockScale / 100);
+        Privacy.hoffset= PrivacyhoffsetDefault * (clockScale / 100);
+        Privacy.voffset= PrivacyvoffsetDefault * (clockScale / 100);
+        Download.size = 10 * (clockScale / 100);
+        Download.hoffset = DownloadhoffsetDefault * (clockScale / 100);
+        Download.voffset = DownloadvoffsetDefault * (clockScale / 100);
+        Read.size = 10 * (clockScale / 100);
+        Read.hoffset = ReadhoffsetDefault * (clockScale / 100);
+        Read.voffset = ReadvoffsetDefault * (clockScale / 100);
 
 
    //variables for the alarm toggle positions
-   flag01HoffsetIn= Math.round( 585 / clockScale * 100);
-   flag02HoffsetIn= Math.round( 592 / clockScale * 100);
-   flag03HoffsetIn= Math.round( 603 / clockScale * 100);
-   flag04HoffsetIn= Math.round( 609 / clockScale * 100);
-   flag05HoffsetIn= Math.round( 611 / clockScale * 100);
+   flag01HoffsetIn= Math.round( 585 * (clockScale / 100));
+   flag02HoffsetIn= Math.round( 592 * (clockScale / 100));
+   flag03HoffsetIn= Math.round( 603 * (clockScale / 100));
+   flag04HoffsetIn= Math.round( 609 * (clockScale / 100));
+   flag05HoffsetIn= Math.round( 611 * (clockScale / 100));
    //variables for the alarm toggle positions
-   flag01HoffsetOut = Math.round( 590 / clockScale * 100);
-   flag02HoffsetOut = Math.round( 597 / clockScale * 100);
-   flag03HoffsetOut = Math.round( 608 / clockScale * 100);
-   flag04HoffsetOut = Math.round( 614 / clockScale * 100);
-   flag05HoffsetOut = Math.round( 615 / clockScale * 100);
+   flag01HoffsetOut = Math.round( 590 * (clockScale / 100));
+   flag02HoffsetOut = Math.round( 597 * (clockScale / 100));
+   flag03HoffsetOut = Math.round( 608 * (clockScale / 100));
+   flag04HoffsetOut = Math.round( 614 * (clockScale / 100));
+   flag05HoffsetOut = Math.round( 615 * (clockScale / 100));
 
    //these preserve the positioning of the toggle buttons after a resize
 
@@ -4292,15 +4298,15 @@ function turnoffticking()
             play (clunk);
             preferences.soundsPref.value="tick";
             checkticking();
-            chain.voffset = chain.voffset + (40 / clockScale * 100);
+            chain.voffset = chain.voffset + (40 * (clockScale / 100));
             sleep (200);
-            chain.voffset = 275 / clockScale * 100;
+            chain.voffset = 275 * (clockScale / 100);
          }
          else
          {
-            chain.voffset = chain.voffset + (40 / clockScale * 100);
+            chain.voffset = chain.voffset + (40 * (clockScale / 100));
             sleep (200);
-            chain.voffset = 275 / clockScale * 100;
+            chain.voffset = 275 * (clockScale / 100);
             play (clunk);
             sleep (500);
             preferences.soundsPref.value="no tick";
@@ -4345,7 +4351,7 @@ function changecounter() {
               if (preferences.rangeMathPrefFlg.value == "maths") {
                 //if (debugFlg === 1) {print("%KON-I-INFO, calculating using "+preferences.rangeMathPrefFlg.value);};
 
-                if (sliderSet.hoffset-(396/ clockScale * 100) <=(-1/ clockScale * 100)  && sliderSet.hoffset-(396/ clockScale * 100) >(-4/ clockScale * 100))
+                if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-1* (clockScale / 100))  && sliderSet.hoffset-(396* (clockScale / 100)) >(-4* (clockScale / 100)))
                 {
                       hourHand.opacity =255;
                       minuteHand.opacity =255;
@@ -4373,114 +4379,114 @@ function changecounter() {
                  // now no longer utilised, retained for testing re: cpu usage.
               if (preferences.rangeMathPrefFlg.value == "range") {
                 if (debugFlg === 1) {print("%KON-I-INFO, calculating using "+preferences.rangeMathPrefFlg.value);};
-                  if (sliderSet.hoffset-(396/ clockScale * 100) <=(-1/ clockScale * 100)  && sliderSet.hoffset-(396/ clockScale * 100) >(-4/ clockScale * 100))
+                  if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-1* (clockScale / 100))  && sliderSet.hoffset-(396* (clockScale / 100)) >(-4* (clockScale / 100)))
                   {
                         hourHand.opacity =255;
                         minuteHand.opacity =255;
                         secondHand.opacity =255;
                         rotatingFlg = false;
                   }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-4/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-8/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-4* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-8* (clockScale / 100)))
                  {
                      timecount = timecount - 15000; // 30 seconds
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-8/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-12/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-8* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-12* (clockScale / 100)))
                  {
                      timecount = timecount - 30000; // 1 minute
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-12/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-16/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-12* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-16* (clockScale / 100)))
                  {
                      timecount = timecount - 300000; // 10 minutes
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-16/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-20/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-16* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-20* (clockScale / 100)))
                  {
                      timecount = timecount - 900000; // 30 minutes
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-20/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-24/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-20* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-24* (clockScale / 100)))
                  {
                      timecount = timecount - 1800000; // 1 hour
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-24/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-28/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-24* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-28* (clockScale / 100)))
                  {
                      timecount = timecount - 7400000; // 4 hours
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-28/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-32/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-28* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-32* (clockScale / 100)))
                  {
                      timecount = timecount - 43400000; // 1 day
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-32/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-36/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-32* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-36* (clockScale / 100)))
                  {
                      timecount = timecount - 175600000; // 4 days
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-36/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-40/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-36* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-40* (clockScale / 100)))
                  {
                      timecount = timecount - 702400000; // 16 days
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-40/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) >(-44/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-40* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) >(-44* (clockScale / 100)))
                  {
                      timecount = timecount - 1258000000; // 1 month
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) <=(-44/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) <=(-44* (clockScale / 100)))
                  {
                      timecount = timecount - 5052000000; // 4 months
                  }
 
                  //advance seconds
     
-                 if (sliderSet.hoffset-(396/ clockScale * 100) >=(0/ clockScale * 100)  && sliderSet.hoffset-(396/ clockScale * 100) <(4/ clockScale * 100))
+                 if (sliderSet.hoffset-(396* (clockScale / 100)) >=(0* (clockScale / 100))  && sliderSet.hoffset-(396* (clockScale / 100)) <(4* (clockScale / 100)))
                  {
                         hourHand.opacity =255;
                         minuteHand.opacity =255;
                         secondHand.opacity =255;
                         rotatingFlg = false;
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(4/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(8/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(4* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(8* (clockScale / 100)))
                  {
                      timecount = timecount + 15000; // 30 seconds
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(8/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(12/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(8* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(12* (clockScale / 100)))
                  {
                      timecount = timecount + 30032; // 1 minute
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(12/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(16/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(12* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(16* (clockScale / 100)))
                  {
                      timecount = timecount + 300023; // 10 minutes
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(16/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(20/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(16* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(20* (clockScale / 100)))
                  {
                      timecount = timecount + 900099; // 30 minutes
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(20/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(24/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(20* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(24* (clockScale / 100)))
                  {
                      timecount = timecount + 1800064; // 1 hour
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(24/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(28/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(24* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(28* (clockScale / 100)))
                  {
                      timecount = timecount + 7200777; // 4 hours
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(28/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(32/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(28* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(32* (clockScale / 100)))
                  {
                      timecount = timecount + 43404568; // 1 day
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(32/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(36/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(32* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(36* (clockScale / 100)))
                  {
                      timecount = timecount + 175600678; // 4 days
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(36/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(40/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(36* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(40* (clockScale / 100)))
                  {
                      timecount = timecount + 702406672; // 16 days
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(40/ clockScale * 100) && sliderSet.hoffset-(396/ clockScale * 100) <(44/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(40* (clockScale / 100)) && sliderSet.hoffset-(396* (clockScale / 100)) <(44* (clockScale / 100)))
                  {
                      timecount = timecount + 1258034006; // 1 month
                  }
-                 else if (sliderSet.hoffset-(396/ clockScale * 100) >=(44/ clockScale * 100))
+                 else if (sliderSet.hoffset-(396* (clockScale / 100)) >=(44* (clockScale / 100)))
                  {
                      timecount = timecount + 5052000008; // 4 months
                  }
              }
 
-             //if (debugFlg === 1) {print("%KON-I-INFO,value =  ",sliderSet.hoffset-(396/ clockScale * 100));};
+             //if (debugFlg === 1) {print("%KON-I-INFO,value =  ",sliderSet.hoffset-(396* (clockScale / 100)));};
              //if (debugFlg === 1) {print("%KON-I-INFO,timecount",timecount);};
 
              // uses basetime when there is no previous alarm, otherwise is a deviation from the alarm time - dean
@@ -4585,7 +4591,7 @@ grommet.onMouseDown = function () {
     if (preferences.soundLevelPref.value != "silent")
     {
 		    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(lock, false);
         	}
     }
@@ -4765,7 +4771,7 @@ function incrementMonth(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4801,7 +4807,7 @@ function incrementSingleHour(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4837,7 +4843,7 @@ function incrementTenMinutes(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4874,7 +4880,7 @@ function incrementSingleMinutes(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4919,7 +4925,7 @@ function incrementDay(scrollData) {
 
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4953,7 +4959,7 @@ function incrementMillenia(scrollData) {
          //print("year = " + year);
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -4987,7 +4993,7 @@ function incrementCentury(scrollData) {
          //print("year = " + year);
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -5022,7 +5028,7 @@ function incrementDecade(scrollData) {
          //print("year = " + year);
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -5054,7 +5060,7 @@ function incrementYear(scrollData) {
          year = padToLeft(year, "0", 4);
          updatecounters();
              
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
          createTimeStamp();
@@ -5114,7 +5120,7 @@ clearscreen2.onMouseWheel = function (event) {
 
 	//if (event.ctrlKey) {
 		if (event.scrollDelta > 0) {
-			if (preferences.MouseWheelPref.value === "up") {
+			if (preferences.MouseWheelPref.value === "down") {
 				size -= step;
 				if (size < minLength) {
 					size = minLength;
@@ -5126,7 +5132,7 @@ clearscreen2.onMouseWheel = function (event) {
 				}
 			}
 		} else if (event.scrollDelta < 0) {
-			if (preferences.MouseWheelPref.value === "up") {
+			if (preferences.MouseWheelPref.value === "down") {
 				size += step;
 				if (size > maxLength) {
 					size = maxLength;
@@ -5200,14 +5206,14 @@ function brassbuttonLOnMouseDown() {
     if (preferences.loudnessPref.value == "on"){
        //if (debugFlg === 1) {print("%KON-I-INFO, brassbuttonLOnMouseDown setting to off");};
        preferences.loudnessPref.value = "off";
-       brassbuttonL.hoffset = ( 290 / clockScale * 100);
+       brassbuttonL.hoffset = ( 290 * (clockScale / 100));
     } else {
        //if (debugFlg === 1) {print("%KON-I-INFO, brassbuttonLOnMouseDown setting to on");};
        preferences.loudnessPref.value = "on";
-       brassbuttonL.hoffset = ( 295 / clockScale * 100);
+       brassbuttonL.hoffset = ( 295 * (clockScale / 100));
     }
         
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
     changeLoudness();
@@ -5222,9 +5228,9 @@ function brassbuttonLOnMouseDown() {
 //=========================================================================
 function setBrassbuttonLOnStartup() {
     if (preferences.loudnessPref.value == "on"){
-       brassbuttonL.hoffset = ( 295 / clockScale * 100);
+       brassbuttonL.hoffset = ( 295 * (clockScale / 100));
     } else {
-       brassbuttonL.hoffset = ( 290 / clockScale * 100);
+       brassbuttonL.hoffset = ( 290 * (clockScale / 100));
     }
 }
 //=====================
@@ -5236,12 +5242,12 @@ function setBrassbuttonLOnStartup() {
 //=========================================================================
 function setBrassbuttonAOnStartup() {
     if (sliderMechanismStatus == "released") {
-           brassbuttonA.hoffset = ( 295 / clockScale * 100);
-           sliderSet.hoffset = Math.round( 395 / clockScale * 100);
-           orangeHeaterGlow.hoffset = Math.round( 425 / clockScale * 100);
+           brassbuttonA.hoffset = ( 295 * (clockScale / 100));
+           sliderSet.hoffset = Math.round( 395 * (clockScale / 100));
+           orangeHeaterGlow.hoffset = Math.round( 425 * (clockScale / 100));
            stretchCable();
     } else {
-           brassbuttonA.hoffset = ( 290 / clockScale * 100);
+           brassbuttonA.hoffset = ( 290 * (clockScale / 100));
     }
 }
 //=====================
@@ -5306,9 +5312,9 @@ function flag01OnMouseDown() {
     if (debugFlg === 1) {print("%KON-I-INFO, flag01OnMouseDown " + raisealarmflg);};
 
     if (selectedAlarm == "1") {
-        if (raisealarmflg != true) {
-            cancelalarmmode();
-        }
+  	if (raisealarmflg != true) {
+             cancelalarmmode();
+          }
     } else {
         selectedAlarm = 1;
         alarmToUse = 1;
@@ -5479,7 +5485,7 @@ function changeLoudness () {
         soundLevelPrefFlg = preferences.soundLevelPref.value;
         sleep(300);
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(nothing, true);
         	}
         tickTimer.reset();
@@ -5519,22 +5525,22 @@ function handleDownArrow () {
 function crankUp () {
            if (debugFlg === 1) {print("%KON-I-INFO,volume cranked up");};
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(cranksound, false);
         	}
-           //crank.voffset=(340 / clockScale * 100);
+           //crank.voffset=(340 * (clockScale / 100));
            //    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
            //crank.src='Resources/crank-middle.png';
            //sleep(700);
 
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
-           crank.voffset=(340 / clockScale * 100);
+           crank.voffset=(340 * (clockScale / 100));
            crank.src='Resources/crank-up.png';
            crank.tooltip="crank me down for silence";
            preferences.crankHandlePref.value = "up";
@@ -5550,22 +5556,22 @@ function crankUp () {
 function crankMiddle () {
            if (debugFlg === 1) {print("%KON-I-INFO,volume cranked middle");};
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(cranksound, false);
         	}
-           //crank.voffset=(340 / clockScale * 100);
+           //crank.voffset=(340 * (clockScale / 100));
            //    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
            //crank.src='Resources/crank-middle.png';
            //sleep(700);
 
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
-           crank.voffset=(340 / clockScale * 100);
+           crank.voffset=(340 * (clockScale / 100));
            crank.src='Resources/crank-middle.png';
            //crank.tooltip="crank me down for silence";
            preferences.crankHandlePref.value = "middle";
@@ -5580,23 +5586,23 @@ function crankMiddle () {
 //===============================
 function crankDown () {
            if (debugFlg === 1) {print("%KON-I-INFO,volume cranked down");};
-           //crank.voffset=(340 / clockScale * 100);
+           //crank.voffset=(340 * (clockScale / 100));
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play("Resources/crank.mp3", false);
         	}
            //    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play("Resources/clunk.mp3", false);
         	}
            //crank.src='Resources/crank-middle.png';
            //sleep(700);
                
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
 
-           crank.voffset=(377 / clockScale * 100);
+           crank.voffset=(377 * (clockScale / 100));
            crank.src='Resources/crank-down.png';
            crank.tooltip="crank me up to make more sound";
            preferences.crankHandlePref.value = "down";
@@ -5660,17 +5666,17 @@ function SetCrankPositiononStartup()
 {
         if (debugFlg === 1) {print("%KON-I-INFO, SetCrankPositiononStartup "+ preferences.crankHandlePref.value);};
         if (preferences.crankHandlePref.value == "up") {
-           crank.voffset=(340 / clockScale * 100);
+           crank.voffset=(340 * (clockScale / 100));
            crank.src='Resources/crank-up.png';
            crank.tooltip="crank me down to quieten the whole clock";
         }
         if (preferences.crankHandlePref.value == "middle") {
-           crank.voffset=(340 / clockScale * 100);
+           crank.voffset=(340 * (clockScale / 100));
            crank.src='Resources/crank-middle.png';
            crank.tooltip="crank me either up or down to change the sound";
         }
         if (preferences.crankHandlePref.value == "down") {
-           crank.voffset=(340 / clockScale * 100);
+           crank.voffset=(340 * (clockScale / 100));
            crank.src='Resources/crank-down.png';
            crank.tooltip="crank me up to make some sound";
         }
@@ -5708,7 +5714,7 @@ function setLoudSounds() {
                counter2 ="Resources/counter2.mp3";
                lock ="Resources/lock.mp3";
                //brassbuttonL.hoffset=290;
-               //brassbuttonL.hoffset=(290 / clockScale * 100);
+               //brassbuttonL.hoffset=(290 * (clockScale / 100));
 }
 //=====================
 //End function
@@ -5812,93 +5818,93 @@ function playNothing () {
 
                // now play the sounds with the nothing sound to flush the sound buffers
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime1, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime2, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime3, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(chime4, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tickingSound, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(belltoll01, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(singleBell, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(twoBells, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(clunk, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(zzzz, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(buzzer, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(alarmbells, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(till, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblind, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblindup, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(rollerblinddown, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tingingSound, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(counter2, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(lock, false);
         	}
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(cranksound, false);
         	}
 
                cranksound = "Resources/crank-nothing.mp3"
                    
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(cranksound, false);
         	}
 }
@@ -6282,7 +6288,7 @@ clockDeletion.onMouseDown = function () {
         plaqueLink.visible = false;
         clockDeletion.visible = false;
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tingingSound, false);
         	}
 }
@@ -6296,7 +6302,7 @@ clockDeletion.onMouseDown = function () {
 //===========================================
 plaqueLink.onMouseDown = function () {
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(zzzz, false);
         	}
           openURL("http://lightquick.co.uk/instructions-for-the-steampunk-clock-calendar-2.html?Itemid=264");
@@ -6310,7 +6316,7 @@ plaqueLink.onMouseDown = function () {
 //===========================================
 plaquetick.onMouseDown = function () {
               
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tingingSound, false);
         	}
           clockDeletion.visible = false;
@@ -6330,7 +6336,7 @@ helpBottom.onMouseDown = function () {
            helpBottom.visible = false;
            helpTop.visible = false;
       	       
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(pageFumble, false);
         	}
 }
@@ -6360,7 +6366,7 @@ function performCommand(method) {
 
     
             
-        if (preferences.soundPref.value === "enabled") {
+        if (preferences.soundPref === "enabled") {
         		play(tingingSound, false);
         	}
 

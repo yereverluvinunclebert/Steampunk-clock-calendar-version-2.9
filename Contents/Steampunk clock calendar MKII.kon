@@ -254,7 +254,7 @@
 
 
 
-  <image>
+                <image>
 			<src>Resources/brassbuttonH.png</src>
 			<name>brassbuttonH</name>
 			<hOffset>290</hOffset>
@@ -262,8 +262,8 @@
 			<opacity>255</opacity>
 			<visible>true</visible>
 			<tooltip>click me for help</tooltip>
-  </image>
-  <image>
+                </image>
+                <image>
 			<src>Resources/brassbuttonA.png</src>
 			<name>brassbuttonA</name>
 			<hOffset>290</hOffset>
@@ -1302,12 +1302,12 @@
 		<title>Clock Size:</title>
 		<group>timepiecesize</group>
 		<type>slider</type>
-		<minlength>100</minlength>
-		<maxlength>500</maxlength>
+		<minlength>10</minlength>
+		<maxlength>300</maxlength>
 		<ticks>50</ticks>
-                <ticklabel>100%</ticklabel>
-                <ticklabel>60%</ticklabel>
                 <ticklabel>20%</ticklabel>
+                <ticklabel>160%</ticklabel>
+                <ticklabel>300%</ticklabel>
 		<defaultValue>90</defaultValue>
 		<description>Decrease the size of the whole timepiece. Change the slider and the whole clock will reduce.</description>
 	</preference>
@@ -1571,7 +1571,7 @@
                 if (system.event.keyCode==39) {
                       if (debugFlg === 1) {print("%KON-I-INFO, pressing right key "+system.event.keyCode);};
                       if (sliderMechanismStatus == "released") {
-                        sliderSet.hOffset = sliderSet.hOffset  + (5 / clockScale * 100);
+                        sliderSet.hOffset = sliderSet.hOffset  + (5 * (clockScale / 100));
                         sliderSetClicked = true;
                         constrainSliderSet();
                       }
@@ -1579,7 +1579,7 @@
                 if (system.event.keyCode==37) {
                       if (debugFlg === 1) {print("%KON-I-INFO, pressing left key "+system.event.keyCode);};
                       if (sliderMechanismStatus == "released") {
-                        sliderSet.hOffset = sliderSet.hOffset - (5 / clockScale * 100);
+                        sliderSet.hOffset = sliderSet.hOffset - (5 * (clockScale / 100));
                         sliderSetClicked = true;
                         constrainSliderSet();
                       }
